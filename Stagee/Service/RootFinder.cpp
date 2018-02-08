@@ -4,6 +4,7 @@ RootFinder::RootFinder() {}
 
 vector<double> RootFinder::solve(const ContDiffFunction *f, double left,
                                  double right) {
+  if (f->isDegenerative()) { return vector<double>{}; }
   vector<double> pointsOfInterest = findSignDiffPoints(f, left, right);
   vector<double> roots;
   for (int i = 0; i < pointsOfInterest.size() - 1; i++) {
@@ -16,7 +17,7 @@ vector<double> RootFinder::solve(const ContDiffFunction *f, double left,
 
 vector<double> RootFinder::findSignDiffPoints(const ContDiffFunction *f,
                                               double left, double right) {
-  double step = 0.1;
+  double step = 0.0001;
   double cur = f->value(left);
   double tmp = f->value(left);
 
@@ -24,7 +25,10 @@ vector<double> RootFinder::findSignDiffPoints(const ContDiffFunction *f,
   values.push_back(left);
   for (double x = left + step; x < right; x += step) {
     cur = f->value(x);
-    if (sign(cur) != sign(tmp)) values.push_back(x);
+    if (sign(cur) != sign(tmp)) {
+      values.push_back(x);
+      values.push_back(x + step);
+    }
     tmp = cur;
   }
   values.push_back(right);
@@ -56,5 +60,5 @@ vector<double> RootFinder::divByTwo(const ContDiffFunction *f, double left,
 }
 
 bool RootFinder::isRoot(const ContDiffFunction *f, double value) {
-  return (abs(f->value(value)) < epsilon) ? true : false;
+  return (fabs(f->value(value)) < epsilon) ? true : false;
 }

@@ -11,7 +11,7 @@ class Polynome : public ContDiffFunction {
   Polynome(vector<double> param);
   virtual double value(double) const;
   virtual double derivValue(double) const;
-  bool isDegenerative();
+  virtual bool isDegenerative() const;
 
  protected:
   const double epsilon = 1e-8;

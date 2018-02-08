@@ -20,7 +20,7 @@ double Polynome::derivValue(double x) const {
   return result;
 }
 
-bool Polynome::isDegenerative() {
+bool Polynome::isDegenerative() const {
   bool result = true;
   for (unsigned int i = 0; i < coeffs.size(); i++) {
     if (coeffs[i] != 0.0) result = false;

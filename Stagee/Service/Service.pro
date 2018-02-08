@@ -3,21 +3,22 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp \
+SOURCES += \
     ContDiffFunction.cpp \
-    Polynome.cpp \
     AbstractSolver.cpp \
     Libs/mongoose.c \
     RestServer.cpp \
-    RootFinder.cpp
+    RootFinder.cpp \
+    Polynome.cpp \
+    main.cpp
 
 HEADERS += \
     ContDiffFunction.h \
-    Polynome.h \
     AbstractSolver.h \
     Libs/mongoose.h \
     RestServer.h \
-    RootFinder.h
+    RootFinder.h \
+    Polynome.h
 
 win32: {
     LIBS += -lwsock32 \
