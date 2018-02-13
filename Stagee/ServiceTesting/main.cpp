@@ -638,7 +638,13 @@ TEST(ValuesTestCaseDiffPower, Test11) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-/******************************************************/
+/*****************************************************
+TEST CASES  : SignTestCase
+NAME        : sign
+DESCRIPTION : Testing of RootFinder.sign(double)
+INPUT       : double
+OUTPUT      : bool
+/*****************************************************/
 TEST(SignTestCase, Test01) {
   double initValue = -3;
 

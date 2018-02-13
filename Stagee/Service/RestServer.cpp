@@ -45,6 +45,7 @@ static void handle_findroots_call(struct mg_connection *nc,
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[-1, 0, 0, 0, 1]"*/
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[151200, 127860,
    * 44524, 8175, 935, 45, 1]"*/
+  /*curl -i -X GET http://localhost:8080/api/findroots -d "[15625, -18750, 9375, -2500, 375, -30, 1]"*/
   string JSONString = string(hm->body.p);
   JSONString.resize(hm->body.len);
   int posPoly = JSONString.find("[") + 1;
