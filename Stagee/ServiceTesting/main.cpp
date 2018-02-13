@@ -10,7 +10,6 @@ const double delta = 1e-8;
 // a0 + a1*x^1 + a2*x^2 + ... + xn*x^n = 0
 
 TEST(HaveRealRootsTestCase, Test01) {
-<<<<<<< HEAD
   vector<double> initValue = {-1.5, 1};
   vector<double> expectedValue = {1.5};
 
@@ -110,10 +109,6 @@ TEST(HaveRealRootsTestCase, Test07) {
   RootFinder testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
-=======
-  /*Create new solver object*/
-  RootFinderStub testObject;
->>>>>>> 4304b7abf12a14789fea995c13caa72873487622
 
   EXPECT_EQ(expectedValue.size(), resultValue.size())
       << "Vectors are of unequal length";
@@ -158,7 +153,6 @@ TEST(HaveRealRootsTestCase, Test99) {
 
 /******************************************************/
 
-<<<<<<< HEAD
 TEST(HaveSimmetricalRealRootsTestCase, Test01) {
   vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
   vector<double> expectedValue = {-10, -2, -1.5, 1.5, 2, 10};
@@ -174,11 +168,6 @@ TEST(HaveSimmetricalRealRootsTestCase, Test01) {
         << "Vectors differ at index " << i;
   }
 }
-=======
-TEST(HaveNoRealRootsTestCase, Test01) {
-  /*Create new solver object*/
-  RootFinderStub testObject;
->>>>>>> 4304b7abf12a14789fea995c13caa72873487622
 
 TEST(HaveSimmetricalRealRootsTestCase, Test02) {
   vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
@@ -197,7 +186,6 @@ TEST(HaveSimmetricalRealRootsTestCase, Test02) {
 }
 
 /******************************************************/
-<<<<<<< HEAD
 
 TEST(HaveNoRealRootsTestCase, Test01) {}
 
@@ -410,7 +398,7 @@ TEST(ValuesTestCase, Test02) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-=======
+/******************************************************/
 TEST(CheckValuesTestCase, Test01) {
   vector<double> initValue = {6, 5};
 
@@ -438,13 +426,6 @@ TEST(CheckValuesTestCase, Test02) {
 
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-
-TEST(CheckValuesTestCase, Test03) {
-  vector<double> initValue = {DBL_MAX, DBL_MIN};
-
-  double solveAt = 0;
-  double expectedValue = DBL_MAX;
->>>>>>> 4304b7abf12a14789fea995c13caa72873487622
 
 TEST(ValuesTestCase, Test03) {
   vector<double> initValue = {2, -3, 1};
@@ -638,6 +619,7 @@ TEST(ValuesTestCaseDiffPower, Test11) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
+
 /*****************************************************
 TEST CASES  : SignTestCase
 NAME        : sign
@@ -645,6 +627,7 @@ DESCRIPTION : Testing of RootFinder.sign(double)
 INPUT       : double
 OUTPUT      : bool
 /*****************************************************/
+
 TEST(SignTestCase, Test01) {
   double initValue = -3;
 

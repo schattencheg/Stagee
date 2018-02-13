@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     ../Service/AbstractSolver.cpp \
     ../Service/ContDiffFunction.cpp \
     ../Service/RootFinder.cpp \
-    ../Service/RestServer.cpp
+    ../Service/RestServer.cpp \
+    rootfinderstub.cpp
 
 HEADERS += \
     ../Service/Libs/mongoose.h \
@@ -32,7 +33,8 @@ HEADERS += \
     ../Service/AbstractSolver.h \
     ../Service/ContDiffFunction.h \
     ../Service/RootFinder.h \
-    ../Service/RestServer.h
+    ../Service/RestServer.h \
+    rootfinderstub.h
 
 win32: {
     LIBS += -lwsock32 \
