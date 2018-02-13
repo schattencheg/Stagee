@@ -17,15 +17,15 @@ vector<double> RootFinder::solve(const ContDiffFunction *f, double left,
 
 vector<double> RootFinder::findSignDiffPoints(const ContDiffFunction *f,
                                               double left, double right) {
-  double step = 0.0001;
-  double cur = f->value(left);
-  double tmp = f->value(left);
+  double step = 0.001;
+  double cur = f->derivValue(left);
+  double tmp = f->derivValue(left);
 
   vector<double> values;
   values.push_back(left);
   for (double x = left + step; x < right; x += step) {
-    cur = f->value(x);
-    if (sign(cur) != sign(tmp)) {
+    cur = f->derivValue(x);
+    if (cur*tmp<=0.0) {
       values.push_back(x);
       values.push_back(x + step);
     }
