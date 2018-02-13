@@ -1,7 +1,7 @@
 #pragma once
 #include <Libs/mongoose.h>
 #include <Polynome.h>
-#include <RootFinder.h>
+#include <SolverDichotomy.h>
 #include <iostream>
 #include <iterator>
 #include <sstream>

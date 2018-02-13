@@ -1,5 +1,5 @@
 #include <Polynome.h>
-#include <rootfinderstub.h>
+#include <SolverDichotomyStub.h>
 #include <gtest/gtest.h>
 #include <vector>
 #include <cfloat>
@@ -13,7 +13,7 @@ TEST(HaveRealRootsTestCase, Test01) {
   vector<double> initValue = {-1.5, 1};
   vector<double> expectedValue = {1.5};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -29,7 +29,7 @@ TEST(HaveRealRootsTestCase, Test02) {
   vector<double> initValue = {7.5, -6.5, 1};
   vector<double> expectedValue = {1.5, 5};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -45,7 +45,7 @@ TEST(HaveRealRootsTestCase, Test03) {
   vector<double> initValue = {22.5, -12, -3.5, 1};
   vector<double> expectedValue = {-3, 1.5, 5};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -61,7 +61,7 @@ TEST(HaveRealRootsTestCase, Test04) {
   vector<double> initValue = {-11.25, 28.5, -10.25, -4, 1};
   vector<double> expectedValue = {-3, 0.5, 1.5, 5};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -76,7 +76,7 @@ TEST(HaveRealRootsTestCase, Test04) {
 TEST(HaveRealRootsTestCase, Test05) {
   vector<double> initValue = {-120, 274, -225, 85, -15, 1};
   vector<double> expectedValue = {1, 2, 3, 4, 5};
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -91,7 +91,7 @@ TEST(HaveRealRootsTestCase, Test05) {
 TEST(HaveRealRootsTestCase, Test06) {
   vector<double> initValue = {720, -1044, -140, 889, -560, 154, -20, 1};
   vector<double> expectedValue = {-1, 1, 2, 3, 4, 5, 6};
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -106,7 +106,7 @@ TEST(HaveRealRootsTestCase, Test06) {
 TEST(HaveRealRootsTestCase, Test07) {
   vector<double> initValue = {1440, -1368, -1324, 1638, -231, -252, 114, -18, 1};
   vector<double> expectedValue = {-2, -1, 1, 2, 3, 4, 5, 6};
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -122,7 +122,7 @@ TEST(HaveRealRootsTestCase, Test07) {
 TEST(HaveRealRootsTestCase, Test08) {
   vector<double> initValue = {15625, -18750, 9375, -2500, 375, -30, 1};
   vector<double> expectedValue = {-5};
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -139,7 +139,7 @@ TEST(HaveRealRootsTestCase, Test99) {
   vector<double> initValue = {115.313, -303.375, 133.563, 30.75, -14.25, 1};
   vector<double> expectedValue = {-3, 0.5, 1.5, 5, 10.25};
   //[-3 0.500004 1.49999 5.00002 10.25 ]
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -157,7 +157,7 @@ TEST(HaveSimmetricalRealRootsTestCase, Test01) {
   vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
   vector<double> expectedValue = {-10, -2, -1.5, 1.5, 2, 10};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -173,7 +173,7 @@ TEST(HaveSimmetricalRealRootsTestCase, Test02) {
   vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
   vector<double> expectedValue = {-10, -2, -1.5, 1.5, 2, 10};
 
-  RootFinder testObject;
+  SolverDichotomy testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
@@ -623,7 +623,7 @@ TEST(ValuesTestCaseDiffPower, Test11) {
 /*****************************************************
 TEST CASES  : SignTestCase
 NAME        : sign
-DESCRIPTION : Testing of RootFinder.sign(double)
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
 INPUT       : double
 OUTPUT      : bool
 /*****************************************************/
@@ -632,7 +632,7 @@ TEST(SignTestCase, Test01) {
   double initValue = -3;
 
   bool expectedValue = false;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -642,7 +642,7 @@ TEST(SignTestCase, Test02) {
   double initValue = 0;
 
   bool expectedValue = true;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -652,7 +652,7 @@ TEST(SignTestCase, Test03) {
   double initValue = 3;
 
   bool expectedValue = true;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -662,7 +662,7 @@ TEST(SignTestCase, Test04) {
   double initValue = DBL_MAX;
 
   bool expectedValue = true;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -672,7 +672,7 @@ TEST(SignTestCase, Test05) {
   double initValue = -DBL_MAX;
 
   bool expectedValue = false;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -682,7 +682,7 @@ TEST(SignTestCase, Test06) {
   double initValue = DBL_MAX_10_EXP;
 
   bool expectedValue = true;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 
@@ -692,7 +692,7 @@ TEST(SignTestCase, Test07) {
   double initValue = -DBL_MAX_10_EXP;
 
   bool expectedValue = false;
-  RootFinderStub testObject;
+  SolverDichotomyStub testObject;
 
   bool resultValue = testObject.signTransit(initValue);
 

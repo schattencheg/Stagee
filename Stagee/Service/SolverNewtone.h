@@ -1,13 +1,13 @@
-#ifndef ROOTFINDER_H
-#define ROOTFINDER_H
+#ifndef SolverNewtone_H
+#define SolverNewtone_H
 
-#include <abstractsolver.h>
+#include <AbstractSolver.h>
 #include <cfloat>
 #include <math.h>
 
-class RootFinder : public AbstractSolver {
+class SolverNewtone : public AbstractSolver {
  public:
-  RootFinder();
+  SolverNewtone();
   virtual vector<double> solve(ContDiffFunction const *f, double left,
                                double right);
 
@@ -19,4 +19,4 @@ class RootFinder : public AbstractSolver {
   bool isRoot(const ContDiffFunction *f, double value);
 };
 
-#endif  // ROOTFINDER_H
+#endif  // SolverNewtone_H

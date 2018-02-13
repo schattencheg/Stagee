@@ -1,7 +1,7 @@
 #ifndef POLYNOME_H
 #define POLYNOME_H
 
-#include <contdifffunction.h>
+#include <ContDiffFunction.h>
 #include <vector>
 #include <math.h>
 using namespace std;

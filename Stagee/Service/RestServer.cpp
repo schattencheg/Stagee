@@ -1,6 +1,5 @@
 #include "RestServer.h"
 
-
 using namespace std;
 
 static const char *s_http_port = "8080";
@@ -68,10 +67,10 @@ static void handle_findroots_call(struct mg_connection *nc,
   /*Create new polynome object*/
   Polynome polynome(polynomeCoeffs);
   /*Create new solver object*/
-  RootFinder polyRootFinder;
+  SolverDichotomy polySolverDichotomy;
 
   /*Search for roots*/
-  vector<double> answerIs = polyRootFinder.solve(&polynome, -100.0, 100.0);
+  vector<double> answerIs = polySolverDichotomy.solve(&polynome, -100.0, 100.0);
   if (polynome.isDegenerative()) {
     res << "all numbers";
   } else {

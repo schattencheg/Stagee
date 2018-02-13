@@ -1,13 +1,13 @@
-#include "RootFinder.h"
+#include "SolverDichotomy.h"
 
-RootFinder::RootFinder() {}
+SolverDichotomy::SolverDichotomy() {}
 
-vector<double> RootFinder::solve(const ContDiffFunction *f, double left,
+vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
                                  double right) {
   if (f->isDegenerative()) { return vector<double>{}; }
   vector<double> pointsOfInterest = findSignDiffPoints(f, left, right);
   vector<double> roots;
-  for (int i = 0; i < pointsOfInterest.size() - 1; i++) {
+  for (unsigned int i = 0; i < pointsOfInterest.size() - 1; i++) {
     vector<double> tempRoot =
         divByTwo(f, pointsOfInterest[i], pointsOfInterest[i + 1]);
     roots.insert(roots.end(), tempRoot.begin(), tempRoot.end());
@@ -15,7 +15,7 @@ vector<double> RootFinder::solve(const ContDiffFunction *f, double left,
   return roots;
 }
 
-vector<double> RootFinder::findSignDiffPoints(const ContDiffFunction *f,
+vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
                                               double left, double right) {
   double step = 0.001;
   double cur = f->derivValue(left);
@@ -35,9 +35,9 @@ vector<double> RootFinder::findSignDiffPoints(const ContDiffFunction *f,
   return values;
 }
 
-bool RootFinder::sign(double value) { return (value >= 0.0) ? true : false; }
+bool SolverDichotomy::sign(double value) { return (value >= 0.0) ? true : false; }
 
-vector<double> RootFinder::divByTwo(const ContDiffFunction *f, double left,
+vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
                                     double right) {
   double middle = (left + right) / 2.0;
   while (!isRoot(f, middle)) {
@@ -59,6 +59,6 @@ vector<double> RootFinder::divByTwo(const ContDiffFunction *f, double left,
   return result;
 }
 
-bool RootFinder::isRoot(const ContDiffFunction *f, double value) {
+bool SolverDichotomy::isRoot(const ContDiffFunction *f, double value) {
   return (fabs(f->value(value)) < epsilon) ? true : false;
 }

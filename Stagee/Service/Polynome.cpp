@@ -1,4 +1,4 @@
-#include "polynome.h"
+#include "Polynome.h"
 
 Polynome::Polynome(vector<double> param) {
   int i = param.size();

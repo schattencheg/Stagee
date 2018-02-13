@@ -1,4 +1,4 @@
-#include "abstractsolver.h"
+#include "AbstractSolver.h"
 
 AbstractSolver::AbstractSolver()
 {

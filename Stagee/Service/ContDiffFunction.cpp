@@ -1,4 +1,4 @@
-#include "contdifffunction.h"
+#include "ContDiffFunction.h"
 
 ContDiffFunction::ContDiffFunction()
 {

@@ -1,16 +1,16 @@
-#ifndef ROOTFINDERSTUB_H
-#define ROOTFINDERSTUB_H
+#ifndef SolverDichotomySTUB_H
+#define SolverDichotomySTUB_H
 
-#include <RootFinder.h>
+#include <SolverDichotomy.h>
 
-class RootFinderStub : public RootFinder
+class SolverDichotomyStub : public SolverDichotomy
 {
 public:
-    RootFinderStub();
+    SolverDichotomyStub();
     vector<double> findSignDiffPointsTransit(const ContDiffFunction *f, double left, double right);
     bool signTransit(double value);
     vector<double> divByTwoTransit(const ContDiffFunction *f, double left, double right);
     bool isRootTransit(const ContDiffFunction *f, double value);
 };
 
-#endif // ROOTFINDERSTUB_H
+#endif // SolverDichotomySTUB_H

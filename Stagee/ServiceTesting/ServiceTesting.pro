@@ -23,18 +23,18 @@ SOURCES += main.cpp \
     ../Service/Polynome.cpp \
     ../Service/AbstractSolver.cpp \
     ../Service/ContDiffFunction.cpp \
-    ../Service/RootFinder.cpp \
+    ../Service/SolverDichotomy.cpp \
     ../Service/RestServer.cpp \
-    rootfinderstub.cpp
+    SolverDichotomyStub.cpp
 
 HEADERS += \
     ../Service/Libs/mongoose.h \
     ../Service/Polynome.h \
     ../Service/AbstractSolver.h \
     ../Service/ContDiffFunction.h \
-    ../Service/RootFinder.h \
+    ../Service/SolverDichotomy.h \
     ../Service/RestServer.h \
-    rootfinderstub.h
+    SolverDichotomyStub.h
 
 win32: {
     LIBS += -lwsock32 \

@@ -8,17 +8,23 @@ SOURCES += \
     AbstractSolver.cpp \
     Libs/mongoose.c \
     RestServer.cpp \
-    RootFinder.cpp \
     Polynome.cpp \
-    main.cpp
+    main.cpp \
+    Decimal.cpp \
+    SolverDichotomy.cpp \
+    SolverHorde.cpp \
+    SolverNewtone.cpp
 
 HEADERS += \
     ContDiffFunction.h \
     AbstractSolver.h \
     Libs/mongoose.h \
     RestServer.h \
-    RootFinder.h \
-    Polynome.h
+    Polynome.h \
+    Decimal.h \
+    SolverDichotomy.h \
+    SolverHorde.h \
+    SolverNewtone.h
 
 win32: {
     LIBS += -lwsock32 \

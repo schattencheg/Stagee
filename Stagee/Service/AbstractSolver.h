@@ -1,7 +1,7 @@
 #ifndef ABSTRACTSOLVER_H
 #define ABSTRACTSOLVER_H
 
-#include <contdifffunction.h>
+#include <ContDiffFunction.h>
 #include <vector>
 
 using namespace std;
