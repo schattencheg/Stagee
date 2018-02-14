@@ -35,7 +35,10 @@ vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
   return values;
 }
 
-bool SolverDichotomy::sign(double value) { return (value >= 0.0) ? true : false; }
+bool SolverDichotomy::sign(double value)
+{
+    return (value >= -epsilon) ? true : false;
+}
 
 vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
                                     double right) {
