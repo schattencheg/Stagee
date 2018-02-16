@@ -12,8 +12,9 @@ class Decimal {
   Decimal(double value);
   Decimal(long int int_part, unsigned long int float_part);
   Decimal(Decimal& value);
+  Decimal();
 
-  Decimal &operator +(Decimal& right);
+  Decimal &operator +(Decimal &right);
   Decimal &operator -(Decimal &right);
   Decimal &operator *(Decimal &right);
   Decimal &operator /(Decimal &right);

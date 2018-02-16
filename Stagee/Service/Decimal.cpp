@@ -29,18 +29,26 @@ Decimal::Decimal(long int_part, unsigned long float_part)
 
 Decimal::Decimal(Decimal &value)
 {
-  m_int = value.m_int;
-  m_float = value.m_float;
+  //if (value)
+  {
+    m_int = value.m_int;
+    m_float = value.m_float;
+  }
 }
 
-Decimal& Decimal::operator+(Decimal& right)
+Decimal::Decimal()
 {
-  m_int = m_int + right.m_int + (m_float * 1e-15 + right.m_float * 1e-15);
-  m_float = (m_float + right.m_float) % (uint64_t)1e15;
-  return *this;
 }
 
-Decimal& Decimal::operator-(Decimal& right)
+Decimal &Decimal::operator +(Decimal &right)
+{
+  Decimal newValue;
+  newValue.m_int = m_int + right.m_int + (m_float * 1e-15 + right.m_float * 1e-15);
+  newValue.m_float = (m_float + right.m_float) % (uint64_t)1e15;
+  return newValue;
+}
+
+Decimal &Decimal::operator-(Decimal& right)
 {
   m_int = m_int - right.m_int;
   if (m_float >= right.m_float)
@@ -50,12 +58,12 @@ Decimal& Decimal::operator-(Decimal& right)
   return *this;
 }
 
-Decimal& Decimal::operator*(Decimal& right)
+Decimal &Decimal::operator*(Decimal& right)
 {
   return *this;
 }
 
-Decimal& Decimal::operator/(Decimal& right)
+Decimal &Decimal::operator/(Decimal& right)
 {
   return *this;
 }
