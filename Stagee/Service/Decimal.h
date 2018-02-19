@@ -11,14 +11,17 @@ class Decimal {
  public:
   Decimal(double value);
   Decimal(long int int_part, unsigned long int float_part);
-  Decimal(Decimal& value);
+  Decimal(const Decimal &value);
   Decimal();
 
-  Decimal &operator +(Decimal &right);
-  Decimal &operator -(Decimal &right);
-  Decimal &operator *(Decimal &right);
-  Decimal &operator /(Decimal &right);
-  void print(char* s);
+  double toDouble() const;
+  Decimal operator +(const Decimal &right) const;
+  //Decimal operator +=(const Decimal &right) const;
+  Decimal operator -(const Decimal &right) const;
+  Decimal operator *(const Decimal &right) const;
+  Decimal operator /(const Decimal &right) const;
+  void print(char* s = "");
+
 protected:
   long int m_int;
   uint64_t m_float;

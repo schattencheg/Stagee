@@ -24,7 +24,8 @@ HEADERS += \
     Decimal.h \
     SolverDichotomy.h \
     SolverHorde.h \
-    SolverNewtone.h
+    SolverNewtone.h \
+    Fixed.h
 
 win32: {
     LIBS += -lwsock32 \
