@@ -15,6 +15,7 @@ double Polynome::value(double x) const {
 }
 
 double Polynome::decimalValue(double x) const {
+    return value(x);
     decimal<10> result(0.0);
     for (unsigned int i = 0; i < coeffs.size(); i++) {
       decimal<10> tmp(coeffs[i]*pow(x,i));

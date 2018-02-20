@@ -43,7 +43,7 @@ bool SolverDichotomy::sign(double value)
 vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
                                     double right) {
   double middle = (left + right) / 2.0;
-  while (!isRoot(f, middle)) {
+  while ((!isRoot(f, middle))||(left==middle)||(middle==right)) {
     double lft = f->decimalValue(left);
     double rgt = f->decimalValue(right);
     double mid = f->decimalValue(middle);
