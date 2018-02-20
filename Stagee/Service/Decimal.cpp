@@ -5,7 +5,7 @@ using namespace std;
 
 Decimal::Decimal(double value) {
   m_int = floor(value);
-  m_float = (value - m_int) * 1e15;
+  m_float = floor((value - m_int) * 1e+18 + 0.5);
   normalize();
 }
 
@@ -29,9 +29,29 @@ Decimal::Decimal(const Decimal& value) {
   m_float = value.m_float;
 }
 
-Decimal::Decimal() { m_int = 0; m_float = 0;}
+Decimal::Decimal() {
+  m_int = 0;
+  m_float = 0;
+}
+
+Decimal Decimal::operator=(const Decimal& right) {
+  if (this == &right) {
+    return *this;
+  }
+  m_int = right.m_int;
+  m_float = right.m_float;
+  return *this;
+}
 
 double Decimal::toDouble() const { return m_int + m_float * 1e-15; }
+
+Decimal Decimal::pow(int level) {
+  if (level == 0) return Decimal(1.0);
+  Decimal result;
+  result = *this;
+  for (int i = 1; i < level; i++) result = result * *this;
+  return result;
+}
 
 Decimal Decimal::operator+(const Decimal& right) const {
   Decimal newValue;
@@ -41,13 +61,11 @@ Decimal Decimal::operator+(const Decimal& right) const {
   return newValue;
 }
 
-/*Decimal Decimal::operator+=(const Decimal& right) const {
-  Decimal newValue;
-  newValue.m_int =
-      m_int + right.m_int + (m_float * 1e-15 + right.m_float * 1e-15);
-  newValue.m_float = (m_float + right.m_float) % (uint64_t)1e15;
-  return newValue;
-}*/
+Decimal Decimal::operator+=(const Decimal& right) {
+  m_int += right.m_int;
+  m_float += right.m_float;
+  return *this;
+}
 
 Decimal Decimal::operator-(const Decimal& right) const {
   Decimal newValue;
@@ -59,9 +77,23 @@ Decimal Decimal::operator-(const Decimal& right) const {
   return newValue;
 }
 
+Decimal Decimal::operator-=(const Decimal& right) {
+  m_int = m_int - right.m_int;
+  if (m_float >= right.m_float)
+    m_float = (m_float - right.m_float);
+  else
+    m_float = (1e15 - right.m_float) + m_float, --m_int;
+  return *this;
+}
+
 Decimal Decimal::operator*(const Decimal& right) const {
-  Decimal newValue(toDouble() * right.toDouble());
-  return newValue;
+  return Decimal(toDouble() * right.toDouble());
+}
+
+Decimal Decimal::operator*=(const Decimal& right) {
+  double tmp = toDouble() * right.toDouble();
+  *this = Decimal(tmp);
+  return *this;
 }
 
 Decimal Decimal::operator/(const Decimal& right) const {
@@ -69,6 +101,12 @@ Decimal Decimal::operator/(const Decimal& right) const {
   return newValue;
 }
 
-void Decimal::print(char *s) {
+Decimal Decimal::operator/=(const Decimal& right) {
+  double tmp = toDouble() / right.toDouble();
+  *this = Decimal(tmp);
+  return *this;
+}
+
+void Decimal::print(char* s) {
   cout << s << ": " << m_int << "." << m_float << endl;
 }

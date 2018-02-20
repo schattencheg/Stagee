@@ -25,7 +25,10 @@ SOURCES += main.cpp \
     ../Service/ContDiffFunction.cpp \
     ../Service/SolverDichotomy.cpp \
     ../Service/RestServer.cpp \
-    SolverDichotomyStub.cpp
+    SolverDichotomyStub.cpp \
+    ../Service/Decimal.cpp \
+    ../Service/SolverNewtone.cpp \
+    ../Service/SolverHorde.cpp
 
 HEADERS += \
     ../Service/Libs/mongoose.h \
@@ -34,7 +37,10 @@ HEADERS += \
     ../Service/ContDiffFunction.h \
     ../Service/SolverDichotomy.h \
     ../Service/RestServer.h \
-    SolverDichotomyStub.h
+    SolverDichotomyStub.h \
+    ../Service/Decimal.h \
+    ../Service/SolverNewtone.h \
+    ../Service/SolverHorde.h
 
 win32: {
     LIBS += -lwsock32 \

@@ -83,8 +83,6 @@ static void handle_findroots_call(struct mg_connection *nc,
 }
 
 static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
-  // if (ev != 0)
-  //    cout << "EVENT: " << ev << endl;
   struct http_message *hm = (struct http_message *)ev_data;
 
   switch (ev) {

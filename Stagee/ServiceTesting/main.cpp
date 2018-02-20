@@ -626,7 +626,7 @@ NAME        : sign
 DESCRIPTION : Testing of SolverDichotomy.sign(double)
 INPUT       : double
 OUTPUT      : bool
-/*****************************************************/
+*****************************************************/
 
 TEST(SignTestCase, Test01) {
   double initValue = -3;

@@ -1,5 +1,4 @@
 #include "Polynome.h"
-#include <Decimal.h>
 
 Polynome::Polynome(vector<double> param) {
   int i = param.size();
@@ -15,14 +14,19 @@ double Polynome::value(double x) const {
   return result;
 }
 
-double Polynome::decimalValue(double x) {
-    Decimal result(0.0);
-    return result.toDouble()
+double Polynome::decimalValue(double x) const {
+    decimal<10> result(0.0);
+    for (unsigned int i = 0; i < coeffs.size(); i++) {
+      decimal<10> tmp(coeffs[i]*pow(x,i));
+      result += tmp;
+    }
+    return result.getAsDouble();
 }
 
 double Polynome::derivValue(double x) const {
   double result = 0.0;
-  result = (value(x) + value(x + epsilon)) / epsilon;
+  //result = (value(x)        + value(       x + epsilon)) / epsilon;
+  result =   (decimalValue(x) + decimalValue(x + epsilon)) / epsilon;
   return result;
 }
 

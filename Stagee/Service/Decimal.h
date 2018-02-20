@@ -14,12 +14,19 @@ class Decimal {
   Decimal(const Decimal &value);
   Decimal();
 
-  double toDouble() const;
+  Decimal operator =(const Decimal &right);
   Decimal operator +(const Decimal &right) const;
-  //Decimal operator +=(const Decimal &right) const;
+  Decimal operator +=(const Decimal &right);
   Decimal operator -(const Decimal &right) const;
+  Decimal operator -=(const Decimal &right);
   Decimal operator *(const Decimal &right) const;
+  Decimal operator *=(const Decimal &right);
   Decimal operator /(const Decimal &right) const;
+  Decimal operator /=(const Decimal &right);
+
+  Decimal pow(int level);
+  double toDouble() const;
+
   void print(char* s = "");
 
 protected:

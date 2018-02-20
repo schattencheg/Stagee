@@ -4,7 +4,9 @@
 #include <ContDiffFunction.h>
 #include <vector>
 #include <math.h>
+#include <decimal_.h>
 
+using namespace dec;
 using namespace std;
 
 class Polynome : public ContDiffFunction {
@@ -13,7 +15,7 @@ class Polynome : public ContDiffFunction {
   virtual double value(double) const;
   virtual double derivValue(double) const;
   virtual bool isDegenerative() const;
-  double decimalValue(double x);
+  virtual double decimalValue(double x) const;
  protected:
   const double epsilon = 1e-8;
   vector<double> coeffs;
