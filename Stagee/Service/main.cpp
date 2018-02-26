@@ -2,6 +2,7 @@
 #include <RestServer.h>
 //#include <Decimal.h>
 #include <fenv.h>
+#include <boost/multiprecision/cpp_bin_float.hpp>
 
 using namespace std;
 

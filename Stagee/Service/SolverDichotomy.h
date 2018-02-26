@@ -4,6 +4,9 @@
 #include <AbstractSolver.h>
 #include <cfloat>
 #include <math.h>
+#include <boost/multiprecision/cpp_bin_float.hpp>
+using namespace boost::multiprecision;
+typedef number<cpp_bin_float<100>> cpp_bin_float_1000;
 
 class SolverDichotomy : public AbstractSolver {
  public:

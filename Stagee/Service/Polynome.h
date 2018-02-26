@@ -4,9 +4,10 @@
 #include <ContDiffFunction.h>
 #include <vector>
 #include <math.h>
-#include <decimal_.h>
+#include <boost/multiprecision/cpp_bin_float.hpp>
+using namespace boost::multiprecision;
+typedef number<cpp_bin_float<100>> cpp_bin_float_1000;
 
-using namespace dec;
 using namespace std;
 
 class Polynome : public ContDiffFunction {

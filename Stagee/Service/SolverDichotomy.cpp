@@ -17,14 +17,16 @@ vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
 
 vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
                                               double left, double right) {
-  double step = 0.001;
-  double cur = f->derivValue(left);
-  double tmp = f->derivValue(left);
+  cpp_bin_float_1000 step = 0.1;
+  cpp_bin_float_1000 cur = f->derivValue(left);
+  cpp_bin_float_1000 tmp = f->derivValue(left);
 
-  vector<double> values;
+  vector<cpp_bin_float_1000> values;
   values.push_back(left);
-  for (double x = left + step; x < right; x += step) {
-    cur = f->derivValue(x);
+  for (cpp_bin_float_1000 x = left + step; x < right; x += step) {
+    cur = f->derivValue(static_cast<float>(x));
+    double tmpx = static_cast<float>(x);
+    //double tmp1 = static_cast<float>(cur);
     if (cur*tmp<=0.0) {
       values.push_back(x);
       values.push_back(x + step);
@@ -32,7 +34,11 @@ vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
     tmp = cur;
   }
   values.push_back(right);
-  return values;
+
+  vector<double> result;
+  for (int i = 0; i < values.size(); i++)
+      result.push_back(static_cast<float>(values[i]));
+  return result;
 }
 
 bool SolverDichotomy::sign(double value)

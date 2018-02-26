@@ -15,13 +15,15 @@ double Polynome::value(double x) const {
 }
 
 double Polynome::decimalValue(double x) const {
-    return value(x);
-    decimal<10> result(0.0);
+    //return value(x);
+    cpp_bin_float_1000 result = 0.0;
     for (unsigned int i = 0; i < coeffs.size(); i++) {
-      decimal<10> tmp(coeffs[i]*pow(x,i));
+      cpp_bin_float_1000 tmp = coeffs[i];
+      for (int j = 0; j < i; j++)
+          tmp *= pow(x,i);
       result += tmp;
     }
-    return result.getAsDouble();
+    return static_cast<float>(result);
 }
 
 double Polynome::derivValue(double x) const {
