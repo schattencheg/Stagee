@@ -5,7 +5,6 @@ class ContDiffFunction {
  public:
   ContDiffFunction();
   virtual double value(double) const = 0;
-  virtual double decimalValue(double x) const = 0;
   virtual double derivValue(double) const = 0;
   virtual bool isDegenerative() const = 0;
 };

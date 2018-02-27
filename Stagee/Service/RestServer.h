@@ -1,5 +1,5 @@
 #pragma once
-#include <Libs/mongoose.h>
+#include <Libs/mongoose/mongoose.h>
 #include <Polynome.h>
 #include <SolverDichotomy.h>
 #include <iostream>

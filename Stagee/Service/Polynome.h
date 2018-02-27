@@ -4,9 +4,6 @@
 #include <ContDiffFunction.h>
 #include <vector>
 #include <math.h>
-#include <boost/multiprecision/cpp_bin_float.hpp>
-using namespace boost::multiprecision;
-typedef number<cpp_bin_float<100>> cpp_bin_float_1000;
 
 using namespace std;
 
@@ -16,7 +13,6 @@ class Polynome : public ContDiffFunction {
   virtual double value(double) const;
   virtual double derivValue(double) const;
   virtual bool isDegenerative() const;
-  virtual double decimalValue(double x) const;
  protected:
   const double epsilon = 1e-8;
   vector<double> coeffs;

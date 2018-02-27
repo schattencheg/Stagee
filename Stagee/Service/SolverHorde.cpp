@@ -41,9 +41,9 @@ vector<double> SolverHorde::divByTwo(const ContDiffFunction *f, double left,
                                     double right) {
   double middle = (left + right) / 2.0;
   while (!isRoot(f, middle)) {
-    double lft = f->decimalValue(left);
-    double rgt = f->decimalValue(right);
-    double mid = f->decimalValue(middle);
+    double lft = f->value(left);
+    double rgt = f->value(right);
+    double mid = f->value(middle);
 
     if (sign(lft) != sign(mid)) {
       right = middle;
@@ -60,5 +60,5 @@ vector<double> SolverHorde::divByTwo(const ContDiffFunction *f, double left,
 }
 
 bool SolverHorde::isRoot(const ContDiffFunction *f, double value) {
-  return (fabs(f->decimalValue(value)) < epsilon) ? true : false;
+  return (fabs(f->value(value)) < epsilon) ? true : false;
 }

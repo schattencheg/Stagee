@@ -14,22 +14,9 @@ double Polynome::value(double x) const {
   return result;
 }
 
-double Polynome::decimalValue(double x) const {
-    //return value(x);
-    cpp_bin_float_1000 result = 0.0;
-    for (unsigned int i = 0; i < coeffs.size(); i++) {
-      cpp_bin_float_1000 tmp = coeffs[i];
-      for (int j = 0; j < i; j++)
-          tmp *= pow(x,i);
-      result += tmp;
-    }
-    return static_cast<float>(result);
-}
-
 double Polynome::derivValue(double x) const {
   double result = 0.0;
-  //result = (value(x)        + value(       x + epsilon)) / epsilon;
-  result =   (decimalValue(x) + decimalValue(x + epsilon)) / epsilon;
+  result =   (value(x) + value(x + epsilon)) / epsilon;
   return result;
 }
 

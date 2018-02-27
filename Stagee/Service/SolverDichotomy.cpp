@@ -17,13 +17,13 @@ vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
 
 vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
                                               double left, double right) {
-  cpp_bin_float_1000 step = 0.1;
-  cpp_bin_float_1000 cur = f->derivValue(left);
-  cpp_bin_float_1000 tmp = f->derivValue(left);
+  double step = 0.1;
+  double cur = f->derivValue(left);
+  double tmp = f->derivValue(left);
 
-  vector<cpp_bin_float_1000> values;
+  vector<double> values;
   values.push_back(left);
-  for (cpp_bin_float_1000 x = left + step; x < right; x += step) {
+  for (double x = left + step; x < right; x += step) {
     cur = f->derivValue(static_cast<float>(x));
     double tmpx = static_cast<float>(x);
     //double tmp1 = static_cast<float>(cur);
@@ -34,11 +34,7 @@ vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
     tmp = cur;
   }
   values.push_back(right);
-
-  vector<double> result;
-  for (int i = 0; i < values.size(); i++)
-      result.push_back(static_cast<float>(values[i]));
-  return result;
+  return values;
 }
 
 bool SolverDichotomy::sign(double value)
@@ -50,9 +46,9 @@ vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
                                     double right) {
   double middle = (left + right) / 2.0;
   while ((!isRoot(f, middle))||(left==middle)||(middle==right)) {
-    double lft = f->decimalValue(left);
-    double rgt = f->decimalValue(right);
-    double mid = f->decimalValue(middle);
+    double lft = f->value(left);
+    double rgt = f->value(right);
+    double mid = f->value(middle);
 
     if (sign(lft) != sign(mid)) {
       right = middle;
@@ -69,6 +65,5 @@ vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
 }
 
 bool SolverDichotomy::isRoot(const ContDiffFunction *f, double value) {
-  //return (fabs(f->value(value)) < epsilon) ? true : false;
-  return (fabs(f->decimalValue(value)) < epsilon) ? true : false;
+  return (fabs(f->value(value)) < epsilon) ? true : false;
 }
