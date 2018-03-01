@@ -16,7 +16,7 @@ double Polynome::value(double x) const {
 
 double Polynome::derivValue(double x) const {
   double result = 0.0;
-  result =   (value(x) + value(x + epsilon)) / epsilon;
+  result = (value(x + epsilon) - value(x)) / epsilon;
   return result;
 }
 

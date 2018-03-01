@@ -3,49 +3,143 @@
 SolverDichotomy::SolverDichotomy() {}
 
 vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
-                                 double right) {
-  if (f->isDegenerative()) { return vector<double>{}; }
-  vector<double> pointsOfInterest = findSignDiffPoints(f, left, right);
+                                      double right) {
+  if (f->isDegenerative()) {
+    return vector<double>{};
+  }
+  vector<pair<double, double>> pointsOfInterest =
+      findSignDiffPoints(f, left, right);
   vector<double> roots;
-  for (unsigned int i = 0; i < pointsOfInterest.size() - 1; i++) {
+  for (unsigned int i = 0; i < pointsOfInterest.size(); i++) {
     vector<double> tempRoot =
-        divByTwo(f, pointsOfInterest[i], pointsOfInterest[i + 1]);
+        divByTwo(f, pointsOfInterest[i].first, pointsOfInterest[i].second);
     roots.insert(roots.end(), tempRoot.begin(), tempRoot.end());
   }
   return roots;
 }
 
-vector<double> SolverDichotomy::findSignDiffPoints(const ContDiffFunction *f,
-                                              double left, double right) {
-  double step = 0.1;
-  double cur = f->derivValue(left);
-  double tmp = f->derivValue(left);
-
+vector<pair<double, double>> SolverDichotomy::findSignDiffPoints(
+    const ContDiffFunction *f, double left, double right) {
+  srand(time(NULL));
+  double d = 0.0001;  // Distance between two roots
+  int maxIterationCount = 1000;
+  double vMax = (right - left) / 10000;
   vector<double> values;
-  values.push_back(left);
-  for (double x = left + step; x < right; x += step) {
-    cur = f->derivValue(static_cast<float>(x));
-    double tmpx = static_cast<float>(x);
-    //double tmp1 = static_cast<float>(cur);
-    if (cur*tmp<=0.0) {
-      values.push_back(x);
-      values.push_back(x + step);
-    }
-    tmp = cur;
+  /*Fills random sorted points*/
+  int countToGenerate = (right - left) / d / 5000;
+  for (int i = 0; i < countToGenerate; i++) {
+    double rndTmp = (double)rand() / RAND_MAX;
+    values.push_back(left + rndTmp * (right - left));
   }
-  values.push_back(right);
-  return values;
+  sort(values.begin(), values.end());
+
+  vector<pair<double, double>> intervals;
+
+  /**/
+  for (int i = 0; i < values.size(); i++) {
+    double intLeft = left;
+    double intRight = right;
+
+    double f0;
+    double f1;
+    double b0;
+    double b1;
+    double v;
+    /*Initialization*/
+    double xPrev = values[i];
+    double sPrev = 0;
+    double sNext = sPrev;
+    double xNext = xPrev;
+    int iteration = 0;
+    /*Main loop*/
+    while ((iteration < maxIterationCount) && (xNext <= right) &&
+           (xNext >= left)) {
+      f0 = f->value(xPrev);
+      f1 = f->derivValue(xPrev);
+
+      b0 = f0 >= 0 ? 1 : -1;
+      b1 = f1 >= 0 ? 1 : -1;
+
+      sNext = -b0 * b1;
+      v = min(max(d, f0 / f1), vMax);
+      xNext = xPrev + sNext * v;
+
+      if (sNext * sPrev == -1) {
+        /*We found it*/
+        intervals.push_back(make_pair(min(xPrev, xNext), max(xPrev, xNext)));
+        break;
+      }
+      sPrev = sNext;
+      xPrev = xNext;
+      iteration++;
+    }
+  }
+
+  /*Combine intervals */
+  for (int i = 0; i < intervals.size(); i++) {
+    for (int j = i + 1; j < intervals.size(); j++) {
+      // Checking this two intervals (i and j) is same
+      //      i     [0,      1]
+      //      j           [0,        1]
+      pair<double, double> intersection;
+      pair<double, double> first = intervals[i];
+      pair<double, double> second = intervals[j];
+      if ((first.first <= second.second) && (first.second >= second.first)) {
+        intersection.first = min(first.first, second.first);
+        intersection.second = max(first.second, second.second);
+        /*Checking intersection*/
+        /*1st check sign of function beginnings*/
+        double fValueIntersectionB = f->value(intersection.first);
+        double fValueFirstB = f->value(first.first);
+        double fValueSecondB = f->value(second.first);
+
+        double fValueIntersectionE = f->value(intersection.second);
+        double fValueFirstE = f->value(first.second);
+        double fValueSecondE = f->value(second.second);
+
+        double fDerivativeValueIntersectionB =
+            f->derivValue(intersection.first);
+        double fDerivativeValueFirstB = f->derivValue(first.first);
+        double fDerivativeValueSecondB = f->derivValue(second.first);
+
+        double fDerivativeValueIntersectionE =
+            f->derivValue(intersection.second);
+        double fDerivativeValueFirstE = f->derivValue(first.second);
+        double fDerivativeValueSecondE = f->derivValue(second.second);
+
+        if ((sign(fValueIntersectionB) == sign(fValueFirstB)) &&
+            (sign(fValueIntersectionB) == sign(fValueSecondB)) &&
+            (sign(fValueIntersectionE) == sign(fValueFirstE)) &&
+            (sign(fValueIntersectionE) == sign(fValueSecondE)) &&
+            (sign(fDerivativeValueIntersectionB) ==
+             sign(fDerivativeValueFirstB)) &&
+            (sign(fDerivativeValueIntersectionB) ==
+             sign(fDerivativeValueSecondB)) &&
+            (sign(fDerivativeValueIntersectionE) ==
+             sign(fDerivativeValueFirstE)) &&
+            (sign(fDerivativeValueIntersectionE) ==
+             sign(fDerivativeValueSecondE))) {
+          /*THIS IS TRUE INTERSECTION!!!!*/
+          intervals[i] = intersection;
+          intervals.erase(intervals.begin() + j);
+          i = 0;
+          j = 0;
+        }
+      }
+    }
+  }
+
+  return intervals;
 }
 
-bool SolverDichotomy::sign(double value)
-{
-    return (value >= -epsilon) ? true : false;
+bool SolverDichotomy::sign(double value) {
+  return (value >= -epsilon) ? true : false;
 }
 
 vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
-                                    double right) {
+                                         double right) {
   double middle = (left + right) / 2.0;
-  while ((!isRoot(f, middle))||(left==middle)||(middle==right)) {
+  while ((!isRoot(f, middle)) || (left == middle) || (middle == right)) {
     double lft = f->value(left);
     double rgt = f->value(right);
     double mid = f->value(middle);

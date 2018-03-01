@@ -4,6 +4,14 @@
 #include <AbstractSolver.h>
 #include <cfloat>
 #include <math.h>
+/*vector sort*/
+#include <algorithm>
+/*random stuff*/
+#include <time.h>
+#include <stdlib.h>
+/*cout*/
+#include <iostream>
+using namespace std;
 
 class SolverDichotomy : public AbstractSolver {
  public:
@@ -13,7 +21,7 @@ class SolverDichotomy : public AbstractSolver {
 
  protected:
   const double epsilon = 1e-8;
-  vector<double> findSignDiffPoints(const ContDiffFunction *f, double left, double right);
+  vector<pair<double, double> > findSignDiffPoints(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
   vector<double> divByTwo(const ContDiffFunction *f, double left, double right);
   bool isRoot(const ContDiffFunction *f, double value);
