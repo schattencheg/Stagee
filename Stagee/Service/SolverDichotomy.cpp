@@ -12,7 +12,7 @@ vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
   vector<double> roots;
   for (unsigned int i = 0; i < pointsOfInterest.size(); i++) {
     vector<double> tempRoot =
-        divByTwo(f, pointsOfInterest[i].first, pointsOfInterest[i].second);
+        intervalParse(f, pointsOfInterest[i].first, pointsOfInterest[i].second);
     roots.insert(roots.end(), tempRoot.begin(), tempRoot.end());
   }
   return roots;
@@ -28,8 +28,10 @@ vector<pair<double, double>> SolverDichotomy::findSignDiffPoints(
   /*Fills random sorted points*/
   int countToGenerate = (right - left) / d / 5000;
   for (int i = 0; i < countToGenerate; i++) {
-    double rndTmp = (double)rand() / RAND_MAX;
-    values.push_back(left + rndTmp * (right - left));
+    //double rndTmp = (double)rand() / RAND_MAX;
+    //values.push_back(left + rndTmp * (right - left));
+      double tmp = (left+i*(right-left)/countToGenerate);
+      values.push_back(tmp);
   }
   sort(values.begin(), values.end());
 
@@ -84,7 +86,7 @@ vector<pair<double, double>> SolverDichotomy::findSignDiffPoints(
       pair<double, double> intersection;
       pair<double, double> first = intervals[i];
       pair<double, double> second = intervals[j];
-      if ((first.first <= second.second) && (first.second >= second.first)) {
+      if ((first.first <= second.second + epsilon) && (first.second >= second.first - epsilon)) {
         intersection.first = min(first.first, second.first);
         intersection.second = max(first.second, second.second);
         /*Checking intersection*/
@@ -136,7 +138,7 @@ bool SolverDichotomy::sign(double value) {
   return (value >= -epsilon) ? true : false;
 }
 
-vector<double> SolverDichotomy::divByTwo(const ContDiffFunction *f, double left,
+vector<double> SolverDichotomy::intervalParse(const ContDiffFunction *f, double left,
                                          double right) {
   double middle = (left + right) / 2.0;
   while ((!isRoot(f, middle)) || (left == middle) || (middle == right)) {

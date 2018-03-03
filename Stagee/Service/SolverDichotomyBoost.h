@@ -6,7 +6,8 @@
 #include <math.h>
 #include <boost/multiprecision/cpp_bin_float.hpp>
 using namespace boost::multiprecision;
-typedef number<cpp_bin_float<100>> cpp_bin_float_1000;
+//typedef number<cpp_bin_float<100>> cpp_bin_float_1000;
+typedef cpp_bin_float_quad boostFloat;
 
 class SolverDichotomyBoost : public AbstractSolver {
  public:
@@ -15,11 +16,13 @@ class SolverDichotomyBoost : public AbstractSolver {
                                double right);
 
  protected:
-  const double epsilon = 1e-8;
-  vector<double> findSignDiffPoints(const ContDiffFunction *f, double left, double right);
+  const cpp_bin_float_quad epsilon = 1e-9;
+  vector<pair<double, double> > findIntervals(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
-  vector<double> divByTwo(const ContDiffFunction *f, double left, double right);
+  bool sign(cpp_bin_float_quad value);
+  vector<double> intervalParse(const ContDiffFunction *f, pair<double,double> interval);
   bool isRoot(const ContDiffFunction *f, double value);
+  bool isRoot(const ContDiffFunction *f, cpp_bin_float_quad value);
 };
 
 #endif  // SOLVERDICHOTOMY_H

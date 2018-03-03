@@ -23,7 +23,7 @@ class SolverDichotomy : public AbstractSolver {
   const double epsilon = 1e-8;
   vector<pair<double, double> > findSignDiffPoints(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
-  vector<double> divByTwo(const ContDiffFunction *f, double left, double right);
+  vector<double> intervalParse(const ContDiffFunction *f, double left, double right);
   bool isRoot(const ContDiffFunction *f, double value);
 };
 

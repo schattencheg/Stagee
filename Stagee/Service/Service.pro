@@ -14,7 +14,8 @@ SOURCES += \
     SolverHorde.cpp \
     SolverNewtone.cpp \
     SolverDichotomyBoost.cpp \
-    libs/mongoose/mongoose.c
+    libs/mongoose/mongoose.c \
+    PolynomeBoost.cpp
 
 HEADERS += \
     ContDiffFunction.h \
@@ -3146,7 +3147,8 @@ HEADERS += \
     libs/boost/version.hpp \
     libs/boost/visit_each.hpp \
     libs/boost/wave.hpp \
-    libs/boost/weak_ptr.hpp
+    libs/boost/weak_ptr.hpp \
+    PolynomeBoost.h
 
 win32: {
     LIBS += -lwsock32 \
