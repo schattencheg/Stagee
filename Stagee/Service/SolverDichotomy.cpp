@@ -8,7 +8,7 @@ vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
     return vector<double>{};
   }
   vector<pair<double, double>> pointsOfInterest =
-      findSignDiffPoints(f, left, right);
+      findIntervals(f, left, right);
   vector<double> roots;
   for (unsigned int i = 0; i < pointsOfInterest.size(); i++) {
     vector<double> tempRoot =
@@ -18,7 +18,7 @@ vector<double> SolverDichotomy::solve(const ContDiffFunction *f, double left,
   return roots;
 }
 
-vector<pair<double, double>> SolverDichotomy::findSignDiffPoints(
+vector<pair<double, double>> SolverDichotomy::findIntervals(
     const ContDiffFunction *f, double left, double right) {
   srand(time(NULL));
   double d = 0.0001;  // Distance between two roots

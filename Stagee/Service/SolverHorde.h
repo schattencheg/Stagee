@@ -4,6 +4,9 @@
 #include <AbstractSolver.h>
 #include <cfloat>
 #include <math.h>
+#include <boost/multiprecision/cpp_bin_float.hpp>
+using namespace boost::multiprecision;
+typedef cpp_bin_float_quad boostFloat;
 
 class SolverHorde : public AbstractSolver {
  public:
@@ -12,11 +15,14 @@ class SolverHorde : public AbstractSolver {
                                double right);
 
  protected:
-  const double epsilon = 1e-8;
-  vector<double> findSignDiffPoints(const ContDiffFunction *f, double left, double right);
+  const double epsilon = 1e-9;
+  vector<pair<double, double> > findIntervals(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
-  vector<double> divByTwo(const ContDiffFunction *f, double left, double right);
+  bool sign(cpp_bin_float_quad value);
+  vector<double> intervalParse(const ContDiffFunction *f, pair<double,double> interval);
   bool isRoot(const ContDiffFunction *f, double value);
+  bool isRoot(const ContDiffFunction *f, cpp_bin_float_quad value);
+
 };
 
 #endif  // SolverHorde_H

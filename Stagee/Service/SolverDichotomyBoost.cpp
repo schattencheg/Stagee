@@ -22,25 +22,23 @@ vector<pair<double, double>> SolverDichotomyBoost::findIntervals(
   srand(time(NULL));
   double d = 0.1;  // Distance between two roots
   int maxIterationCount = 1000;
-  double vMax = (right - left) / 10000;
+  double vMax = (right - left) / 10000; //Highest Dx
   vector<double> values;
-  /*Fills random sorted points*/
+  /*Fills random, sorted points*/
   int countToGenerate = static_cast<int>((right - left) * 10 );
   for (int i = 0; i < countToGenerate; i++) {
-    // cpp_bin_float_quad rndTmp = (cpp_bin_float_quad)rand() / RAND_MAX;
-    // values.push_back(left + rndTmp * (right - left));
-    double tmp = (left + i * (right - left) / countToGenerate);
-    values.push_back(tmp);
+    double rndTmp = (double)rand() / RAND_MAX;
+    values.push_back(left + rndTmp * (right - left));
+    //double tmp = (left + i * (right - left) / countToGenerate);
+    //values.push_back(tmp);
   }
   sort(values.begin(), values.end());
 
   vector<pair<double, double>> intervals;
 
   /**/
-  double intLeft = left;
-  double intRight = right;
   for (int i = 0; i < values.size(); i++) {
-      double aValue = values[i];
+    double aValue = values[i];
     double f0; //Function value
     double f1; //Derivative value
     double b0; //Sign(f0)
@@ -67,8 +65,6 @@ vector<pair<double, double>> SolverDichotomyBoost::findIntervals(
       if (isRoot(f,xPrev)){intervals.push_back(make_pair(xPrev, xPrev)); break;}
 
       if ((i>0)&&(xNext<values[i-1]))break; /*We already calculated it, so skip*/
-
-
 
       if (sNext * sPrev == -1) {
         /*We found it*/

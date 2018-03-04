@@ -7,6 +7,8 @@
 /*Boost decimals*/
 #include <PolynomeBoost.h>
 #include <SolverDichotomyBoost.h>
+#include <SolverHorde.h>
+#include <SolverNewtone.h>
 /*Double*/
 #include <Polynome.h>
 #include <SolverDichotomy.h>

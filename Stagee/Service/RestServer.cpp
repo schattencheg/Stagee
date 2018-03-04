@@ -66,27 +66,12 @@ static void handle_findroots_call(struct mg_connection *nc,
 
   /*Create new polynome object*/
   PolynomeBoost polynome(polynomeCoeffs);
-  /*Create new solver object*/
+  /*Create new dihotomy solver object*/
   SolverDichotomyBoost polySolverDichotomy;
+  SolverHorde polySolverHorde;
+  SolverNewtone polySolverNewtone;
 
-  Polynome simplePolynome(polynomeCoeffs);
-  SolverDichotomy polySolver;
-
-  /*Search for roots*/
-  /*Simple Polynome*/
-  //vector<double> answerIs = polySolver.solve(&simplePolynome, -100.0, 100.0);
-  //if (simplePolynome.isDegenerative()) {
-  //  res << "all numbers";
-  //} else {
-  //  std::copy(answerIs.begin(), answerIs.end(),
-  //            ostream_iterator<double>(res, " "));
-  //}
-  //mg_printf_http_chunk(nc, "Simple algorithm:\n");
-  //mg_printf_http_chunk(nc, "[%s]\n", res.str().c_str());
-
-
-
-  /*PolynomeBoost*/
+  /*PolynomeDihotomy*/
   vector<double> answerIs = polySolverDichotomy.solve(&polynome, -100.0, 100.0);
   if (polynome.isDegenerative()) {
     res << "all numbers";
@@ -94,8 +79,33 @@ static void handle_findroots_call(struct mg_connection *nc,
     std::copy(answerIs.begin(), answerIs.end(),
               ostream_iterator<double>(res, " "));
   }
-  mg_printf_http_chunk(nc, "Boost algorithm:\n");
+  mg_printf_http_chunk(nc, "Dihotomy algorithm:\n");
   mg_printf_http_chunk(nc, "[%s]", res.str().c_str());
+
+  /*PolynomeHorde*/
+  res.str(std::string());
+  answerIs = polySolverHorde.solve(&polynome, -100.0, 100.0);
+  if (polynome.isDegenerative()) {
+    res << "all numbers";
+  } else {
+    std::copy(answerIs.begin(), answerIs.end(),
+              ostream_iterator<double>(res, " "));
+  }
+  mg_printf_http_chunk(nc, "\nHorde algorithm:\n");
+  mg_printf_http_chunk(nc, "[%s]", res.str().c_str());
+
+  /*PolynomeNewtone*/
+  res.str(std::string());
+  answerIs = polySolverNewtone.solve(&polynome, -100.0, 100.0);
+  if (polynome.isDegenerative()) {
+    res << "all numbers";
+  } else {
+    std::copy(answerIs.begin(), answerIs.end(),
+              ostream_iterator<double>(res, " "));
+  }
+  mg_printf_http_chunk(nc, "\nNewtone algorithm:\n");
+  mg_printf_http_chunk(nc, "[%s]", res.str().c_str());
+
   mg_send_http_chunk(nc, "", 0); /* Send empty chunk, the end of response */
 }
 
