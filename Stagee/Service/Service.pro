@@ -9,7 +9,6 @@ SOURCES += \
     RestServer.cpp \
     Polynome.cpp \
     main.cpp \
-    Decimal.cpp \
     SolverDichotomy.cpp \
     SolverHorde.cpp \
     SolverNewtone.cpp \
@@ -22,7 +21,6 @@ HEADERS += \
     AbstractSolver.h \
     RestServer.h \
     Polynome.h \
-    Decimal.h \
     SolverDichotomy.h \
     SolverHorde.h \
     SolverNewtone.h \

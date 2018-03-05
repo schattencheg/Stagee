@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "SolverHorde.h"
 
 SolverHorde::SolverHorde() {}
@@ -38,7 +39,6 @@ vector<pair<double, double>> SolverHorde::findIntervals(
 
   /**/
   for (int i = 0; i < values.size(); i++) {
-    double aValue = values[i];
     double f0; //Function value
     double f1; //Derivative value
     double b0; //Sign(f0)

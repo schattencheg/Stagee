@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "SolverDichotomy.h"
 
 SolverDichotomy::SolverDichotomy() {}
@@ -39,14 +40,11 @@ vector<pair<double, double>> SolverDichotomy::findIntervals(
 
   /**/
   for (int i = 0; i < values.size(); i++) {
-    double intLeft = left;
-    double intRight = right;
-
-    double f0;
-    double f1;
-    double b0;
-    double b1;
-    double v;
+    double f0; //Function value
+    double f1; //Derivative value
+    double b0; //Sign(f0)
+    double b1; //Dign(f1)
+    double v;  //Step
     /*Initialization*/
     double xPrev = values[i];
     double sPrev = 0;

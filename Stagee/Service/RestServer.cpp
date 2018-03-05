@@ -31,7 +31,6 @@ static void handle_checkvalue_call(struct mg_connection *nc,
   PolynomeBoost myPolynome(polynome);
   /*Calculate value at point x*/
   double answerIs = myPolynome.value(x);
-
   /* Send headers */
   mg_printf(nc, "%s", "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n");
   mg_printf_http_chunk(nc, "[%lf]", answerIs);
@@ -42,8 +41,7 @@ static void handle_findroots_call(struct mg_connection *nc,
                                   struct http_message *hm) {
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[6, 2]"*/
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[-1, 0, 0, 0, 1]"*/
-  /*curl -i -X GET http://localhost:8080/api/findroots -d "[151200, 127860,
-   * 44524, 8175, 935, 45, 1]"*/
+  /*curl -i -X GET http://localhost:8080/api/findroots -d "[151200, 127860, 44524, 8175, 935, 45, 1]"*/
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[15625, -18750, 9375, -2500, 375, -30, 1]"*/
   string JSONString = string(hm->body.p);
   JSONString.resize(hm->body.len);
@@ -135,8 +133,6 @@ RestServer::RestServer() {
   struct mg_mgr mgr;
   struct mg_connection *nc;
   struct mg_bind_opts bind_opts;
-  int i;
-  char *cp;
   const char *err_str;
 #if MG_ENABLE_SSL
   const char *ssl_cert = NULL;

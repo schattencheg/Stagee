@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "SolverDichotomyBoost.h"
 
 SolverDichotomyBoost::SolverDichotomyBoost() {}
@@ -37,8 +38,7 @@ vector<pair<double, double>> SolverDichotomyBoost::findIntervals(
   vector<pair<double, double>> intervals;
 
   /**/
-  for (int i = 0; i < values.size(); i++) {
-    double aValue = values[i];
+  for (unsigned int i = 0; i < values.size(); i++) {
     double f0; //Function value
     double f1; //Derivative value
     double b0; //Sign(f0)
@@ -80,8 +80,8 @@ vector<pair<double, double>> SolverDichotomyBoost::findIntervals(
   }
 
   /*Combine intervals */
-  for (int i = 0; i < intervals.size(); i++) {
-    for (int j = i + 1; j < intervals.size(); j++) {
+  for (unsigned int i = 0; i < intervals.size(); i++) {
+    for (unsigned int j = i + 1; j < intervals.size(); j++) {
       // Checking this two intervals (i and j) is same
       //      i     [0,      1]
       //      j           [0,        1]
