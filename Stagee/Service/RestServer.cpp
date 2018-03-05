@@ -28,7 +28,7 @@ static void handle_checkvalue_call(struct mg_connection *nc,
   }
 
   /*Create new polynome object*/
-  PolynomeBoost myPolynome(polynome);
+  Polynome myPolynome(polynome);
   /*Calculate value at point x*/
   double answerIs = myPolynome.value(x);
   /* Send headers */
@@ -63,9 +63,9 @@ static void handle_findroots_call(struct mg_connection *nc,
   std::stringstream res;
 
   /*Create new polynome object*/
-  PolynomeBoost polynome(polynomeCoeffs);
+  Polynome polynome(polynomeCoeffs);
   /*Create new dihotomy solver object*/
-  SolverDichotomyBoost polySolverDichotomy;
+  SolverDichotomy polySolverDichotomy;
   SolverHorde polySolverHorde;
   SolverNewtone polySolverNewtone;
 

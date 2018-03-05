@@ -26,7 +26,6 @@ SOURCES += main.cpp \
     ../Service/SolverDichotomy.cpp \
     ../Service/RestServer.cpp \
     SolverDichotomyStub.cpp \
-    ../Service/Decimal.cpp \
     ../Service/SolverNewtone.cpp \
     ../Service/SolverHorde.cpp
 
@@ -38,7 +37,6 @@ HEADERS += \
     ../Service/SolverDichotomy.h \
     ../Service/RestServer.h \
     SolverDichotomyStub.h \
-    ../Service/Decimal.h \
     ../Service/SolverNewtone.h \
     ../Service/SolverHorde.h \
     ../Service/boost/concept/detail/backward_compatibility.hpp \

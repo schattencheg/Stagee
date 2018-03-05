@@ -5,9 +5,8 @@
 #include <string>
 #include <Libs/mongoose/mongoose.h>
 /*Boost decimals*/
-#include <PolynomeBoost.h>
+#include <Polynome.h>
 #include <SolverDichotomy.h>
-#include <SolverDichotomyBoost.h>
 #include <SolverHorde.h>
 #include <SolverNewtone.h>
 /*Double*/

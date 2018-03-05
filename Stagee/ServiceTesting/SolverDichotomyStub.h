@@ -7,9 +7,9 @@ class SolverDichotomyStub : public SolverDichotomy
 {
 public:
     SolverDichotomyStub();
-    vector<double> findSignDiffPointsTransit(const ContDiffFunction *f, double left, double right);
+    vector<pair<double, double>> findIntervalsTransit(const ContDiffFunction *f, double left, double right);
     bool signTransit(double value);
-    vector<double> divByTwoTransit(const ContDiffFunction *f, double left, double right);
+    vector<double> intervalParseTransit(const ContDiffFunction *f, double left, double right);
     bool isRootTransit(const ContDiffFunction *f, double value);
 };
 

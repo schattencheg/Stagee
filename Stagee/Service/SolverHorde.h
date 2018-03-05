@@ -15,7 +15,7 @@ class SolverHorde : public AbstractSolver {
                                double right);
 
  protected:
-  const double epsilon = 1e-9;
+  const double epsilon = 1e-15;
   vector<pair<double, double> > findIntervals(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
   bool sign(cpp_bin_float_quad value);

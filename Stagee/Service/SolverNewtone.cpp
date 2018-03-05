@@ -3,13 +3,12 @@
 
 SolverNewtone::SolverNewtone() {}
 
-vector<double> SolverNewtone::solve(const ContDiffFunction *f,
-                                           double left, double right) {
+vector<double> SolverNewtone::solve(const ContDiffFunction *f, double left,
+                                    double right) {
   if (f->isDegenerative()) {
     return vector<double>{};
   }
-  vector<pair<double, double>> pointsOfInterest =
-      findIntervals(f, left, right);
+  vector<pair<double, double>> pointsOfInterest = findIntervals(f, left, right);
   vector<double> roots;
   for (unsigned int i = 0; i < pointsOfInterest.size(); i++) {
     vector<double> tempRoot = intervalParse(f, pointsOfInterest[i]);
@@ -21,29 +20,30 @@ vector<double> SolverNewtone::solve(const ContDiffFunction *f,
 vector<pair<double, double>> SolverNewtone::findIntervals(
     const ContDiffFunction *f, double left, double right) {
   srand(time(NULL));
-  double d = 0.1;  // Distance between two roots
+  double d = 0.01;  // Distance between two roots
   int maxIterationCount = 1000;
-  double vMax = (right - left) / 10000; //Highest Dx
+  double vMax = (right - left) / 1000;  // Highest Dx
   vector<double> values;
   /*Fills random, sorted points*/
-  int countToGenerate = static_cast<int>((right - left) * 10 );
+  int countToGenerate = static_cast<int>((right - left) * 10);
   for (int i = 0; i < countToGenerate; i++) {
     double rndTmp = (double)rand() / RAND_MAX;
     values.push_back(left + rndTmp * (right - left));
-    //double tmp = (left + i * (right - left) / countToGenerate);
-    //values.push_back(tmp);
+    // double tmp = (left + i * (right - left) / countToGenerate);
+    // values.push_back(tmp);
   }
   sort(values.begin(), values.end());
 
   vector<pair<double, double>> intervals;
 
   /**/
-  for (int i = 0; i < values.size(); i++) {
-    double f0; //Function value
-    double f1; //Derivative value
-    double b0; //Sign(f0)
-    double b1; //Dign(f1)
-    double v;  //Step
+  for (unsigned int i = 0; i < values.size(); i++) {
+    double aValue = values[i];
+    double f0;  // Function value
+    double f1;  // Derivative value
+    double b0;  // Sign(f0)
+    double b1;  // Dign(f1)
+    double v;   // Step
     /*Initialization*/
     double xPrev = values[i];
     double sPrev = 0;
@@ -51,7 +51,8 @@ vector<pair<double, double>> SolverNewtone::findIntervals(
     double xNext = xPrev;
     int iteration = 0;
     /*Main loop*/
-    while ((iteration < maxIterationCount) && (xNext <= right) && (xNext >= left)) {
+    while ((iteration < maxIterationCount) && (xNext <= right) &&
+           (xNext >= left)) {
       f0 = f->value(xPrev);
       f1 = f->derivValue(xPrev);
 
@@ -59,12 +60,22 @@ vector<pair<double, double>> SolverNewtone::findIntervals(
       b1 = f1 >= 0 ? 1 : -1;
 
       sNext = -b0 * b1;
-      v = min(max(d, f0 / f1), vMax);
+      v = vMax;  // min(max(d, f0 / f1), vMax);
       xNext = xPrev + sNext * v;
 
-      if (isRoot(f,xPrev)){intervals.push_back(make_pair(xPrev, xPrev)); break;}
+      if (aValue > 4.5) int tmp = 0;
 
-      if ((i>0)&&(xNext<values[i-1]))break; /*We already calculated it, so skip*/
+      if (isRoot(f, xPrev)) {
+        intervals.push_back(make_pair(xPrev, xPrev));
+        break;
+      }
+      if (isRoot(f, xNext)) {
+        intervals.push_back(make_pair(xNext, xNext));
+        break;
+      }
+
+      if ((i > 0) && (xNext < values[i - 1]) && (xPrev < values[i - 1]))
+        break; /*We already calculated it, so skip*/
 
       if (sNext * sPrev == -1) {
         /*We found it*/
@@ -76,12 +87,12 @@ vector<pair<double, double>> SolverNewtone::findIntervals(
       iteration++;
     }
     /* UNNECESSARY INCREASING PERFORMANCE */
-    while ((i<values.size()-1)&&(values[i+1]<max(xPrev, xNext)))i++;
+    while ((i < values.size() - 1) && (values[i] < min(xPrev, xNext))) i++;
   }
 
   /*Combine intervals */
-  for (int i = 0; i < intervals.size(); i++) {
-    for (int j = i + 1; j < intervals.size(); j++) {
+  for (unsigned int i = 0; i < intervals.size(); i++) {
+    for (unsigned int j = i + 1; j < intervals.size(); j++) {
       // Checking this two intervals (i and j) is same
       //      i     [0,      1]
       //      j           [0,        1]
@@ -94,21 +105,23 @@ vector<pair<double, double>> SolverNewtone::findIntervals(
         intersection.second = max(first.second, second.second);
         /*Checking intersection*/
         /*1st check sign of function beginnings*/
-        double fValueIntersectionB =           f->value(intersection.first      );
-        double fValueFirstB =                  f->value(first.first             );
-        double fValueSecondB =                 f->value(second.first            );
+        double fValueIntersectionB = f->value(intersection.first);
+        double fValueFirstB = f->value(first.first);
+        double fValueSecondB = f->value(second.first);
 
-        double fValueIntersectionE =           f->value(intersection.second     );
-        double fValueFirstE =                  f->value(first.second            );
-        double fValueSecondE =                 f->value(second.second           );
+        double fValueIntersectionE = f->value(intersection.second);
+        double fValueFirstE = f->value(first.second);
+        double fValueSecondE = f->value(second.second);
 
-        double fDerivativeValueIntersectionB = f->derivValue(intersection.first );
-        double fDerivativeValueFirstB =        f->derivValue(first.first        );
-        double fDerivativeValueSecondB =       f->derivValue(second.first       );
+        double fDerivativeValueIntersectionB =
+            f->derivValue(intersection.first);
+        double fDerivativeValueFirstB = f->derivValue(first.first);
+        double fDerivativeValueSecondB = f->derivValue(second.first);
 
-        double fDerivativeValueIntersectionE = f->derivValue(intersection.second);
-        double fDerivativeValueFirstE =        f->derivValue(first.second       );
-        double fDerivativeValueSecondE =       f->derivValue(second.second      );
+        double fDerivativeValueIntersectionE =
+            f->derivValue(intersection.second);
+        double fDerivativeValueFirstE = f->derivValue(first.second);
+        double fDerivativeValueSecondE = f->derivValue(second.second);
 
         if ((sign(fValueIntersectionB) == sign(fValueFirstB)) &&
             (sign(fValueIntersectionB) == sign(fValueSecondB)) &&
@@ -131,12 +144,11 @@ vector<pair<double, double>> SolverNewtone::findIntervals(
       }
     }
   }
-
   vector<pair<double, double>> result;
   for (int i = 0; i < intervals.size(); i++) {
-      result.push_back(make_pair(static_cast<double>(intervals[i].first),static_cast<double>(intervals[i].second)));
+    result.push_back(make_pair(static_cast<double>(intervals[i].first),
+                               static_cast<double>(intervals[i].second)));
   }
-
   return result;
 }
 
@@ -149,14 +161,15 @@ bool SolverNewtone::sign(cpp_bin_float_quad value) {
 }
 
 vector<double> SolverNewtone::intervalParse(const ContDiffFunction *f,
-                                              pair<double, double> interval) {
-    double xN = (interval.first + interval.second) / 2.0;
-    while ((!isRoot(f, xN))&&(xN<=interval.second)&&(xN>=interval.first)) {
-      xN = xN - f->value(xN)/f->derivValue(xN);
-    }
-    vector<double> result;
-    if (isRoot(f, xN)) result.push_back(xN);
-    return result;
+                                            pair<double, double> interval) {
+  double xN = (interval.first + interval.second) / 2.0;
+  while ((!isRoot(f, xN)) && (xN <= interval.second) &&
+         (xN >= interval.first)) {
+    xN = xN - f->value(xN) / f->derivValue(xN);
+  }
+  vector<double> result;
+  if (isRoot(f, xN)) result.push_back(xN);
+  return result;
 }
 
 bool SolverNewtone::isRoot(const ContDiffFunction *f, double value) {

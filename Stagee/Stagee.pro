@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    Service #\
-    #ServiceTesting
+    Service \
+    ServiceTesting

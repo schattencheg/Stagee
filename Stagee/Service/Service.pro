@@ -7,27 +7,22 @@ SOURCES += \
     ContDiffFunction.cpp \
     AbstractSolver.cpp \
     RestServer.cpp \
-    Polynome.cpp \
     main.cpp \
-    SolverDichotomy.cpp \
     SolverHorde.cpp \
     SolverNewtone.cpp \
-    SolverDichotomyBoost.cpp \
     libs/mongoose/mongoose.c \
-    PolynomeBoost.cpp
+    SolverDichotomy.cpp \
+    Polynome.cpp
 
 HEADERS += \
     ContDiffFunction.h \
     AbstractSolver.h \
     RestServer.h \
-    Polynome.h \
-    SolverDichotomy.h \
     SolverHorde.h \
     SolverNewtone.h \
     Fixed.h \
     decimal.h \
     decimal_.h \
-    SolverDichotomyBoost.h \
     libs/mongoose/mongoose.h \
     libs/boost/concept/detail/backward_compatibility.hpp \
     libs/boost/concept/detail/borland.hpp \
@@ -3146,7 +3141,8 @@ HEADERS += \
     libs/boost/visit_each.hpp \
     libs/boost/wave.hpp \
     libs/boost/weak_ptr.hpp \
-    PolynomeBoost.h
+    SolverDichotomy.h \
+    Polynome.h
 
 win32: {
     LIBS += -lwsock32 \

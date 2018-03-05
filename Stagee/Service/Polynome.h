@@ -1,10 +1,11 @@
-#ifndef POLYNOME_H
-#define POLYNOME_H
+#ifndef POLYNOMEBOOST_H
+#define POLYNOMEBOOST_H
 
 #include <ContDiffFunction.h>
 #include <vector>
 #include <math.h>
-
+#include <boost/multiprecision/cpp_bin_float.hpp>
+using namespace boost::multiprecision;
 using namespace std;
 
 class Polynome : public ContDiffFunction {
@@ -14,8 +15,9 @@ class Polynome : public ContDiffFunction {
   virtual double derivValue(double) const;
   virtual bool isDegenerative() const;
  protected:
-  const double epsilon = 1e-8;
+  const cpp_bin_float_quad epsilon = 1e-5;
   vector<double> coeffs;
+  cpp_bin_float_quad pOw(cpp_bin_float_quad x, int level) const;
 };
 
-#endif  // POLYNOME_H
+#endif  // POLYNOMEBOOST_H
