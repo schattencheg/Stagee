@@ -20,7 +20,6 @@ vector<double> SolverNewtone::solve(const ContDiffFunction *f, double left,
 vector<pair<double, double>> SolverNewtone::findIntervals(
     const ContDiffFunction *f, double left, double right) {
   srand(time(NULL));
-  double d = 0.01;  // Distance between two roots
   int maxIterationCount = 1000;
   double vMax = (right - left) / 1000;  // Highest Dx
   vector<double> values;

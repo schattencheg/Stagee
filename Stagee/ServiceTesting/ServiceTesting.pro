@@ -27,7 +27,9 @@ SOURCES += main.cpp \
     ../Service/RestServer.cpp \
     SolverDichotomyStub.cpp \
     ../Service/SolverNewtone.cpp \
-    ../Service/SolverHorde.cpp
+    ../Service/SolverHorde.cpp \
+    SolverHordeStub.cpp \
+    SolverNewtoneStub.cpp
 
 HEADERS += \
     ../Service/Libs/mongoose/mongoose.h \
@@ -3155,7 +3157,9 @@ HEADERS += \
     ../Service/boost/version.hpp \
     ../Service/boost/visit_each.hpp \
     ../Service/boost/wave.hpp \
-    ../Service/boost/weak_ptr.hpp
+    ../Service/boost/weak_ptr.hpp \
+    SolverHordeStub.h \
+    SolverNewtoneStub.h
 
 win32: {
     LIBS += -lwsock32 \

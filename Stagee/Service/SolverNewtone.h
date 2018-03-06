@@ -16,6 +16,7 @@ class SolverNewtone : public AbstractSolver {
 
  protected:
   const double epsilon = 1e-15;
+  const double distanceRoot = 0.01;  // Distance between two roots
   vector<pair<double, double> > findIntervals(const ContDiffFunction *f, double left, double right);
   bool sign(double value);
   bool sign(cpp_bin_float_quad value);

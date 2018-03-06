@@ -20,7 +20,6 @@ vector<double> SolverHorde::solve(const ContDiffFunction *f, double left,
 vector<pair<double, double>> SolverHorde::findIntervals(
     const ContDiffFunction *f, double left, double right) {
   srand(time(NULL));
-  double d = 0.01;  // Distance between two roots
   int maxIterationCount = 1000;
   double vMax = (right - left) / 1000;  // Highest Dx
   vector<double> values;
@@ -162,6 +161,17 @@ bool SolverHorde::sign(cpp_bin_float_quad value) {
 
 vector<double> SolverHorde::intervalParse(const ContDiffFunction *f,
                                           pair<double, double> interval) {
+  double a = interval.first;
+  double b = interval.second;
+  while(fabs(b - a) > epsilon) {
+           a = b - (b - a) * f->value(b) / (f->value(b) - f->value(a));
+           b = a + (a - b) * f->value(a) / (f->value(a) - f->value(b));
+  }
+  // a, b Ч (i - 1)-й и i-й члены
+  vector<double> res;
+  if (isRoot(f, b)) res.push_back(b);
+  return res;
+
   double xPrev = interval.first - epsilon;
   double xCur = interval.first;
   double xNext = interval.first;

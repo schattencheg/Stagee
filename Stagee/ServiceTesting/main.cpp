@@ -1,17 +1,26 @@
 #include <Polynome.h>
 #include <SolverDichotomyStub.h>
+#include <SolverNewtoneStub.h>
+#include <SolverHordeStub.h>
 #include <gtest/gtest.h>
 #include <vector>
 #include <cfloat>
 
 using namespace std;
 
-const double delta = 1e-8;
+const double delta = 1e-5;
 // a0 + a1*x^1 + a2*x^2 + ... + xn*x^n = 0
 
-TEST(HaveRealRootsTestCase, Test01) {
-  vector<double> initValue = {-1.5, 1};
-  vector<double> expectedValue = {1.5};
+/*****************************************************
+TEST CASES  : HaveRealRootsTestCaseDichotomy
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveRealRootsTestCaseDichotomy, Test01) {
+  vector<double> initValue = {0, 1};
+  vector<double> expectedValue = {0};
 
   SolverDichotomy testObject;
   Polynome polynome(initValue);
@@ -19,184 +28,726 @@ TEST(HaveRealRootsTestCase, Test01) {
 
   EXPECT_EQ(expectedValue.size(), resultValue.size())
       << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
+  for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
     EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
         << "Vectors differ at index " << i;
   }
 }
 
-TEST(HaveRealRootsTestCase, Test02) {
-  vector<double> initValue = {7.5, -6.5, 1};
-  vector<double> expectedValue = {1.5, 5};
+TEST(HaveRealRootsTestCaseDichotomy, Test02) {
+    vector<double> initValue = {0, 0, 1};
+    vector<double> expectedValue = {0};
 
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
 
-TEST(HaveRealRootsTestCase, Test03) {
-  vector<double> initValue = {22.5, -12, -3.5, 1};
-  vector<double> expectedValue = {-3, 1.5, 5};
+TEST(HaveRealRootsTestCaseDichotomy, Test03) {
+    vector<double> initValue = {0, 0, 0, 1};
+    vector<double> expectedValue = {0};
 
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+//(x-1)(x-2)(x-3)
+TEST(HaveRealRootsTestCaseDichotomy, Test04) {
+    vector<double> initValue = {-6, 11, -6, 1};
+    vector<double> expectedValue = {1, 2, 3};
 
-TEST(HaveRealRootsTestCase, Test04) {
-  vector<double> initValue = {-11.25, 28.5, -10.25, -4, 1};
-  vector<double> expectedValue = {-3, 0.5, 1.5, 5};
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
-
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+//(x-1)(x+1)(x-2)(x+2)
+TEST(HaveRealRootsTestCaseDichotomy, Test05) {
+    vector<double> initValue = {4, 0, -5, 0, 1};
+    vector<double> expectedValue = {-2, -1, 1, 2};
 
-TEST(HaveRealRootsTestCase, Test05) {
-  vector<double> initValue = {-120, 274, -225, 85, -15, 1};
-  vector<double> expectedValue = {1, 2, 3, 4, 5};
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+//(x-100)(x+100)
+TEST(HaveRealRootsTestCaseDichotomy, Test06) {
+    vector<double> initValue = {-9801, 0, 1};
+    vector<double> expectedValue = {-99, 99};
 
-TEST(HaveRealRootsTestCase, Test06) {
-  vector<double> initValue = {720, -1044, -140, 889, -560, 154, -20, 1};
-  vector<double> expectedValue = {-1, 1, 2, 3, 4, 5, 6};
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+/*****************************************************
+TEST CASES  : HaveNoRealRootsTestCaseDichotomy
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveNoRealRootsTestCaseDichotomy, Test01) {
+    vector<double> initValue = {-101, 1};
+    vector<double> expectedValue = {};
 
-TEST(HaveRealRootsTestCase, Test07) {
-  vector<double> initValue = {1440, -1368, -1324, 1638, -231, -252, 114, -18, 1};
-  vector<double> expectedValue = {-2, -1, 1, 2, 3, 4, 5, 6};
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+TEST(HaveNoRealRootsTestCaseDichotomy, Test02) {
+    vector<double> initValue = {101, 1};
+    vector<double> expectedValue = {};
 
-//(x-5)(x-5)(x-5)(x-5)(x-5)(x-5)
-TEST(HaveRealRootsTestCase, Test08) {
-  vector<double> initValue = {15625, -18750, 9375, -2500, 375, -30, 1};
-  vector<double> expectedValue = {-5};
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+TEST(HaveNoRealRootsTestCaseDichotomy, Test03) {
+    vector<double> initValue = {1, 0};
+    vector<double> expectedValue = {};
 
-TEST(HaveRealRootsTestCase, Test99) {
-  //(x-1.5)(x-5.0)(x+3.0)(x-0.5)(x-10.25)
-  vector<double> initValue = {115.313, -303.375, 133.563, 30.75, -14.25, 1};
-  vector<double> expectedValue = {-3, 0.5, 1.5, 5, 10.25};
-  //[-3 0.500004 1.49999 5.00002 10.25 ]
-  SolverDichotomy testObject;
-  Polynome polynome(initValue);
-  vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-  EXPECT_EQ(expectedValue.size(), resultValue.size())
-      << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
-    EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
-        << "Vectors differ at index " << i;
-  }
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
 }
+TEST(HaveNoRealRootsTestCaseDichotomy, Test04) {
+    vector<double> initValue = {7, 3, 5};
+    vector<double> expectedValue = {};
 
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseDichotomy, Test05) {
+    vector<double> initValue = {1, 0, 0, 0, 1};
+    vector<double> expectedValue = {};
+
+    SolverDichotomy testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+/*****************************************************
+TEST CASES  : SignTestCaseDichotomy
+NAME        : sign
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(SignTestCaseDichotomy, Test01) {
+  double initValue = -3;
+  bool expectedValue = false;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test02) {
+  double initValue = 0;
+  bool expectedValue = true;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test03) {
+  double initValue = 3;
+  bool expectedValue = true;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test04) {
+  double initValue = DBL_MAX;
+  bool expectedValue = true;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test05) {
+  double initValue = -DBL_MAX;
+  bool expectedValue = false;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test06) {
+  double initValue = DBL_MAX_10_EXP;
+  bool expectedValue = true;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseDichotomy, Test07) {
+  double initValue = -DBL_MAX_10_EXP;
+  bool expectedValue = false;
+  SolverDichotomyStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
 /******************************************************/
 
-TEST(HaveSimmetricalRealRootsTestCase, Test01) {
-  vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
-  vector<double> expectedValue = {-10, -2, -1.5, 1.5, 2, 10};
+/*****************************************************
+TEST CASES  : HaveRealRootsTestCaseNewtone
+NAME        : solve
+DESCRIPTION : Testing of SolverNewtone.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveRealRootsTestCaseNewtone, Test01) {
+  vector<double> initValue = {0, 1};
+  vector<double> expectedValue = {0};
 
-  SolverDichotomy testObject;
+  SolverNewtone testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
   EXPECT_EQ(expectedValue.size(), resultValue.size())
       << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
+  for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
     EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
         << "Vectors differ at index " << i;
   }
 }
 
-TEST(HaveSimmetricalRealRootsTestCase, Test02) {
-  vector<double> initValue = {-900, 0, 634, 0, -106.25, 0, 1};
-  vector<double> expectedValue = {-10, -2, -1.5, 1.5, 2, 10};
+TEST(HaveRealRootsTestCaseNewtone, Test02) {
+    vector<double> initValue = {0, 0, 1};
+    vector<double> expectedValue = {0};
 
-  SolverDichotomy testObject;
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+
+TEST(HaveRealRootsTestCaseNewtone, Test03) {
+    vector<double> initValue = {0, 0, 0, 1};
+    vector<double> expectedValue = {0};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-1)(x-2)(x-3)
+TEST(HaveRealRootsTestCaseNewtone, Test04) {
+    vector<double> initValue = {-6, 11, -6, 1};
+    vector<double> expectedValue = {1, 2, 3};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-1)(x+1)(x-2)(x+2)
+TEST(HaveRealRootsTestCaseNewtone, Test05) {
+    vector<double> initValue = {4, 0, -5, 0, 1};
+    vector<double> expectedValue = {-2, -1, 1, 2};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-100)(x+100)
+TEST(HaveRealRootsTestCaseNewtone, Test06) {
+    vector<double> initValue = {-9801, 0, 1};
+    vector<double> expectedValue = {-99, 99};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+/*****************************************************
+TEST CASES  : HaveNoRealRootsTestCaseNewtone
+NAME        : solve
+DESCRIPTION : Testing of SolverNewtone.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveNoRealRootsTestCaseNewtone, Test01) {
+    vector<double> initValue = {-101, 1};
+    vector<double> expectedValue = {};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseNewtone, Test02) {
+    vector<double> initValue = {101, 1};
+    vector<double> expectedValue = {};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseNewtone, Test03) {
+    vector<double> initValue = {1, 0};
+    vector<double> expectedValue = {};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseNewtone, Test04) {
+    vector<double> initValue = {7, 3, 5};
+    vector<double> expectedValue = {};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseNewtone, Test05) {
+    vector<double> initValue = {1, 0, 0, 0, 1};
+    vector<double> expectedValue = {};
+
+    SolverNewtone testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+/*****************************************************
+TEST CASES  : SignTestCaseNewtone
+NAME        : sign
+DESCRIPTION : Testing of SolverNewtone.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(SignTestCaseNewtone, Test01) {
+  double initValue = -3;
+  bool expectedValue = false;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test02) {
+  double initValue = 0;
+  bool expectedValue = true;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test03) {
+  double initValue = 3;
+  bool expectedValue = true;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test04) {
+  double initValue = DBL_MAX;
+  bool expectedValue = true;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test05) {
+  double initValue = -DBL_MAX;
+  bool expectedValue = false;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test06) {
+  double initValue = DBL_MAX_10_EXP;
+  bool expectedValue = true;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseNewtone, Test07) {
+  double initValue = -DBL_MAX_10_EXP;
+  bool expectedValue = false;
+  SolverNewtoneStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+/******************************************************/
+
+/*****************************************************
+TEST CASES  : HaveRealRootsTestCaseHorde
+NAME        : solve
+DESCRIPTION : Testing of SolverHorde.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveRealRootsTestCaseHorde, Test01) {
+  vector<double> initValue = {0, 1};
+  vector<double> expectedValue = {0};
+
+  SolverHorde testObject;
   Polynome polynome(initValue);
   vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
   EXPECT_EQ(expectedValue.size(), resultValue.size())
       << "Vectors are of unequal length";
-  for (unsigned int i = 0; i < expectedValue.size(); ++i) {
+  for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
     EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
         << "Vectors differ at index " << i;
   }
 }
 
-/******************************************************/
+TEST(HaveRealRootsTestCaseHorde, Test02) {
+    vector<double> initValue = {0, 0, 1};
+    vector<double> expectedValue = {0};
 
-TEST(HaveNoRealRootsTestCase, Test01) {}
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
 
-/******************************************************/
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
 
+TEST(HaveRealRootsTestCaseHorde, Test03) {
+    vector<double> initValue = {0, 0, 0, 1};
+    vector<double> expectedValue = {0};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-1)(x-2)(x-3)
+TEST(HaveRealRootsTestCaseHorde, Test04) {
+    vector<double> initValue = {-6, 11, -6, 1};
+    vector<double> expectedValue = {1, 2, 3};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-1)(x+1)(x-2)(x+2)
+TEST(HaveRealRootsTestCaseHorde, Test05) {
+    vector<double> initValue = {4, 0, -5, 0, 1};
+    vector<double> expectedValue = {-2, -1, 1, 2};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+//(x-100)(x+100)
+TEST(HaveRealRootsTestCaseHorde, Test06) {
+    vector<double> initValue = {-9801, 0, 1};
+    vector<double> expectedValue = {-99, 99};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+/*****************************************************
+TEST CASES  : HaveNoRealRootsTestCaseHorde
+NAME        : solve
+DESCRIPTION : Testing of SolverHorde.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(HaveNoRealRootsTestCaseHorde, Test01) {
+    vector<double> initValue = {-101, 1};
+    vector<double> expectedValue = {};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseHorde, Test02) {
+    vector<double> initValue = {101, 1};
+    vector<double> expectedValue = {};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseHorde, Test03) {
+    vector<double> initValue = {1, 0};
+    vector<double> expectedValue = {};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseHorde, Test04) {
+    vector<double> initValue = {7, 3, 5};
+    vector<double> expectedValue = {};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+TEST(HaveNoRealRootsTestCaseHorde, Test05) {
+    vector<double> initValue = {1, 0, 0, 0, 1};
+    vector<double> expectedValue = {};
+
+    SolverHorde testObject;
+    Polynome polynome(initValue);
+    vector<double> resultValue = testObject.solve(&polynome, -100.0, 100.0);
+
+    EXPECT_EQ(expectedValue.size(), resultValue.size())
+        << "Vectors are of unequal length";
+    for (unsigned int i = 0; i < min(expectedValue.size(),resultValue.size()); ++i) {
+      EXPECT_NEAR(expectedValue[i], resultValue[i], delta)
+          << "Vectors differ at index " << i;
+    }
+}
+/*****************************************************
+TEST CASES  : SignTestCaseHorde
+NAME        : sign
+DESCRIPTION : Testing of SolverHorde.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(SignTestCaseHorde, Test01) {
+  double initValue = -3;
+  bool expectedValue = false;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test02) {
+  double initValue = 0;
+  bool expectedValue = true;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test03) {
+  double initValue = 3;
+  bool expectedValue = true;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test04) {
+  double initValue = DBL_MAX;
+  bool expectedValue = true;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test05) {
+  double initValue = -DBL_MAX;
+  bool expectedValue = false;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test06) {
+  double initValue = DBL_MAX_10_EXP;
+  bool expectedValue = true;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+TEST(SignTestCaseHorde, Test07) {
+  double initValue = -DBL_MAX_10_EXP;
+  bool expectedValue = false;
+  SolverHordeStub testObject;
+  bool resultValue = testObject.signTransit(initValue);
+  EXPECT_EQ(expectedValue, resultValue);
+}
+/* detached test cases */
+/*****************************************************
+TEST CASES  : DegeneracyTestCase
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
 TEST(DegeneracyTestCase, Test01) {
   vector<double> initValue = {0};
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -205,7 +756,6 @@ TEST(DegeneracyTestCase, Test02) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -214,7 +764,6 @@ TEST(DegeneracyTestCase, Test03) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -223,7 +772,6 @@ TEST(DegeneracyTestCase, Test04) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -232,7 +780,6 @@ TEST(DegeneracyTestCase, Test05) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -241,7 +788,6 @@ TEST(DegeneracyTestCase, Test06) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -250,7 +796,6 @@ TEST(DegeneracyTestCase, Test07) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -259,7 +804,6 @@ TEST(DegeneracyTestCase, Test08) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -268,7 +812,6 @@ TEST(DegeneracyTestCase, Test09) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -277,7 +820,6 @@ TEST(DegeneracyTestCase, Test10) {
   bool expectedValue = true;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -286,7 +828,6 @@ TEST(DegeneracyTestCase, Test11) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -295,7 +836,6 @@ TEST(DegeneracyTestCase, Test12) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -304,7 +844,6 @@ TEST(DegeneracyTestCase, Test13) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -313,7 +852,6 @@ TEST(DegeneracyTestCase, Test14) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -322,7 +860,6 @@ TEST(DegeneracyTestCase, Test15) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -331,7 +868,6 @@ TEST(DegeneracyTestCase, Test16) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -340,7 +876,6 @@ TEST(DegeneracyTestCase, Test17) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -349,7 +884,6 @@ TEST(DegeneracyTestCase, Test18) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -358,7 +892,6 @@ TEST(DegeneracyTestCase, Test19) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -367,7 +900,6 @@ TEST(DegeneracyTestCase, Test20) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
 
@@ -376,11 +908,15 @@ TEST(DegeneracyTestCase, Test21) {
   bool expectedValue = false;
   Polynome testObject(initValue);
   bool resultValue = testObject.isDegenerative();
-
   EXPECT_EQ(expectedValue, resultValue) << "Vectors are of unequal length";
 }
-/******************************************************/
-
+/*****************************************************
+TEST CASES  : ValuesTestCase
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
 TEST(ValuesTestCase, Test01) {
   vector<double> initValue = {2, -3, 1};
   Polynome polynome(initValue);
@@ -389,91 +925,13 @@ TEST(ValuesTestCase, Test01) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-
-TEST(ValuesTestCase, Test02) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = 1;
-  double expectedValue = 0;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-/******************************************************/
-TEST(CheckValuesTestCase, Test01) {
-  vector<double> initValue = {6, 5};
-
-  double solveAt = 3;
-  double expectedValue = 21;
-
-  /*Create new polynome object*/
-  Polynome polynome(initValue);
-
-  double resultValue = polynome.value(solveAt);
-
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(CheckValuesTestCase, Test02) {
-  vector<double> initValue = {6, 5};
-
-  double solveAt = 0;
-  double expectedValue = 6;
-
-  /*Create new polynome object*/
-  Polynome polynome(initValue);
-
-  double resultValue = polynome.value(solveAt);
-
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(ValuesTestCase, Test03) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = 1.01;
-  double expectedValue = -0.0099;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(ValuesTestCase, Test04) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = 0.99;
-  double expectedValue = 0.0101;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(ValuesTestCase, Test05) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = 2;
-  double expectedValue = 0;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(ValuesTestCase, Test06) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = 100;
-  double expectedValue = 9702;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-TEST(ValuesTestCase, Test07) {
-  vector<double> initValue = {2, -3, 1};
-  Polynome polynome(initValue);
-  double solveAt = -100.0;
-  double expectedValue = 10302;
-  double resultValue = polynome.value(solveAt);
-  EXPECT_NEAR(expectedValue, resultValue, delta);
-}
-
-/******************************************************/
-
+/*****************************************************
+TEST CASES  : ValuesTestCaseConstant
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
 TEST(ValuesTestCaseConstant, Test01) {
   vector<double> initValue = {1, 0, 0};
   Polynome polynome(initValue);
@@ -518,10 +976,14 @@ TEST(ValuesTestCaseConstant, Test05) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-
-/******************************************************/
-
-TEST(ValuesTestCaseDiffPower, Test01) {
+/*****************************************************
+TEST CASES  : ValuesTestCaseDiffPowerDichotomy
+NAME        : solve
+DESCRIPTION : Testing of SolverDichotomy.sign(double)
+INPUT       : double
+OUTPUT      : bool
+*****************************************************/
+TEST(ValuesTestCaseDiffPowerDichotomy, Test01) {
   vector<double> initValue = {1};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -530,7 +992,7 @@ TEST(ValuesTestCaseDiffPower, Test01) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test02) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test02) {
   vector<double> initValue = {1, 2};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -539,7 +1001,7 @@ TEST(ValuesTestCaseDiffPower, Test02) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test03) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test03) {
   vector<double> initValue = {1, 2, 3};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -548,7 +1010,7 @@ TEST(ValuesTestCaseDiffPower, Test03) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test04) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test04) {
   vector<double> initValue = {1, 2, 3, 4};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -557,7 +1019,7 @@ TEST(ValuesTestCaseDiffPower, Test04) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test05) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test05) {
   vector<double> initValue = {1, 2, 3, 4, 5};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -566,7 +1028,7 @@ TEST(ValuesTestCaseDiffPower, Test05) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test06) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test06) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -575,7 +1037,7 @@ TEST(ValuesTestCaseDiffPower, Test06) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test07) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test07) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -584,7 +1046,7 @@ TEST(ValuesTestCaseDiffPower, Test07) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test08) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test08) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -593,7 +1055,7 @@ TEST(ValuesTestCaseDiffPower, Test08) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test09) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test09) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8, 9};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -602,7 +1064,7 @@ TEST(ValuesTestCaseDiffPower, Test09) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test10) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test10) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -611,7 +1073,7 @@ TEST(ValuesTestCaseDiffPower, Test10) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPower, Test11) {
+TEST(ValuesTestCaseDiffPowerDichotomy, Test11) {
   vector<double> initValue = {1, 2, 3, 4, 5, 0, 0, 0, 0, 0};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -619,86 +1081,7 @@ TEST(ValuesTestCaseDiffPower, Test11) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-
-/*****************************************************
-TEST CASES  : SignTestCase
-NAME        : sign
-DESCRIPTION : Testing of SolverDichotomy.sign(double)
-INPUT       : double
-OUTPUT      : bool
-*****************************************************/
-
-TEST(SignTestCase, Test01) {
-  double initValue = -3;
-
-  bool expectedValue = false;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test02) {
-  double initValue = 0;
-
-  bool expectedValue = true;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test03) {
-  double initValue = 3;
-
-  bool expectedValue = true;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test04) {
-  double initValue = DBL_MAX;
-
-  bool expectedValue = true;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test05) {
-  double initValue = -DBL_MAX;
-
-  bool expectedValue = false;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test06) {
-  double initValue = DBL_MAX_10_EXP;
-
-  bool expectedValue = true;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-TEST(SignTestCase, Test07) {
-  double initValue = -DBL_MAX_10_EXP;
-
-  bool expectedValue = false;
-  SolverDichotomyStub testObject;
-
-  bool resultValue = testObject.signTransit(initValue);
-
-  EXPECT_EQ(expectedValue, resultValue);
-}
-/******************************************************/
+/********************************************************************/
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
