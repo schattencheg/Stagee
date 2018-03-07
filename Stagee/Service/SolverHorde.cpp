@@ -161,29 +161,16 @@ bool SolverHorde::sign(cpp_bin_float_quad value) {
 
 vector<double> SolverHorde::intervalParse(const ContDiffFunction *f,
                                           pair<double, double> interval) {
-  double a = interval.first;
-  double b = interval.second;
-  while(fabs(b - a) > epsilon) {
-           a = b - (b - a) * f->value(b) / (f->value(b) - f->value(a));
-           b = a + (a - b) * f->value(a) / (f->value(a) - f->value(b));
+  double xL = interval.first;
+  double xR = interval.second;
+  while (fabs(xR-xL)>=epsilon)
+  {
+      xL = xL - (xR-xL)*(f->value(xL)/(f->value(xR)-f->value(xL)));
+      xR = xR - (xL-xR)*(f->value(xR)/(f->value(xL)-f->value(xR)));
   }
-  // a, b Ч (i - 1)-й и i-й члены
-  vector<double> res;
-  if (isRoot(f, b)) res.push_back(b);
-  return res;
 
-  double xPrev = interval.first - epsilon;
-  double xCur = interval.first;
-  double xNext = interval.first;
-  while ((!isRoot(f, xNext)) && (xNext <= interval.second) &&
-         (xNext >= interval.first)) {
-    xNext = xCur - (f->value(xCur) * (xCur - xPrev)) /
-                       (f->value(xCur) - f->value(xPrev));
-    xPrev = xCur;
-    xCur = xNext;
-  }
   vector<double> result;
-  if (isRoot(f, xNext)) result.push_back(xNext);
+  if (isRoot(f, xR)) result.push_back(xR);
   return result;
 }
 
