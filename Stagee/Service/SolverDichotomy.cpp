@@ -1,4 +1,4 @@
-/*#pragma GCC diagnostic ignored "-Wsign-compare"*/
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "SolverDichotomy.h"
 
 SolverDichotomy::SolverDichotomy() {}

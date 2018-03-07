@@ -20,7 +20,6 @@ HEADERS += \
     RestServer.h \
     SolverHorde.h \
     SolverNewtone.h \
-    Fixed.h \
     decimal.h \
     decimal_.h \
     libs/mongoose/mongoose.h \

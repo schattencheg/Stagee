@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <Libs/mongoose/mongoose.h>
+#include <Libs/boost/chrono.hpp>
 /*Boost decimals*/
 #include <Polynome.h>
 #include <SolverDichotomy.h>
