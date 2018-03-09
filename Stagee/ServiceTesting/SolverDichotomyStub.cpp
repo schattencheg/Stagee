@@ -7,7 +7,7 @@ SolverDichotomyStub::SolverDichotomyStub()
 
 vector<pair<double, double>> SolverDichotomyStub::findIntervalsTransit(const ContDiffFunction *f, double left, double right)
 {
-    return findIntervals(f,left,right);
+    return FindInterval::findIntervals(f,left,right,*this);
 }
 
 bool SolverDichotomyStub::signTransit(double value)

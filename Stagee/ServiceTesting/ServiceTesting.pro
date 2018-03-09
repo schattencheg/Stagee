@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     ../Service/SolverNewtone.cpp \
     ../Service/SolverHorde.cpp \
     SolverHordeStub.cpp \
-    SolverNewtoneStub.cpp
+    SolverNewtoneStub.cpp \
+    ../Service/FindInterval.cpp
 
 HEADERS += \
     ../Service/Libs/mongoose/mongoose.h \
@@ -3159,7 +3160,8 @@ HEADERS += \
     ../Service/boost/wave.hpp \
     ../Service/boost/weak_ptr.hpp \
     SolverHordeStub.h \
-    SolverNewtoneStub.h
+    SolverNewtoneStub.h \
+    ../Service/FindInterval.h
 
 win32: {
     LIBS += -lwsock32 \

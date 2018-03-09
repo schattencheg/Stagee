@@ -12,7 +12,8 @@ SOURCES += \
     SolverNewtone.cpp \
     libs/mongoose/mongoose.c \
     SolverDichotomy.cpp \
-    Polynome.cpp
+    Polynome.cpp \
+    FindInterval.cpp
 
 HEADERS += \
     ContDiffFunction.h \
@@ -21,7 +22,6 @@ HEADERS += \
     SolverHorde.h \
     SolverNewtone.h \
     decimal.h \
-    decimal_.h \
     libs/mongoose/mongoose.h \
     libs/boost/concept/detail/backward_compatibility.hpp \
     libs/boost/concept/detail/borland.hpp \
@@ -3141,7 +3141,8 @@ HEADERS += \
     libs/boost/wave.hpp \
     libs/boost/weak_ptr.hpp \
     SolverDichotomy.h \
-    Polynome.h
+    Polynome.h \
+    FindInterval.h
 
 win32: {
     LIBS += -lwsock32 \

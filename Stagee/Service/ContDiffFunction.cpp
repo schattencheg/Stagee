@@ -1,6 +1,3 @@
 #include "ContDiffFunction.h"
 
-ContDiffFunction::ContDiffFunction()
-{
-
-}
+ContDiffFunction::ContDiffFunction() {}

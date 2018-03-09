@@ -17,7 +17,6 @@ class Polynome : public ContDiffFunction {
  protected:
   const cpp_bin_float_quad epsilon = 1e-5;
   vector<double> coeffs;
-  cpp_bin_float_quad pOw(cpp_bin_float_quad x, int level) const;
 };
 
 #endif  // POLYNOMEBOOST_H

@@ -6,16 +6,6 @@ Polynome::Polynome(vector<double> param) {
   coeffs.insert(coeffs.begin(), param.begin(), param.begin() + i);
 }
 
-cpp_bin_float_quad Polynome::pOw(cpp_bin_float_quad x, int level) const
-{
-    cpp_bin_float_quad result = 1;
-    for (int i = 0; i < level; i++)
-    {
-        result *= x;
-    }
-    return result;
-}
-
 double Polynome::value(double x) const {
   cpp_bin_float_quad result = 0.0;
   cpp_bin_float_quad X = x;
