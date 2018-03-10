@@ -3,7 +3,7 @@
 #include <iterator>
 #include <sstream>
 #include <string>
-#include <Libs/mongoose/mongoose.h>
+#include <libs/mongoose/mongoose.h>
 #include <Polynome.h>
 #include <SolverDichotomy.h>
 #include <SolverHorde.h>
