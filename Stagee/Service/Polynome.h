@@ -17,26 +17,26 @@ class Polynome : public ContDiffFunction {
   Polynome(vector<double> param);
   /*!
    * \brief value
-   * \return
+   * \return Значение функции в точке, заданной параметром.
    */
   virtual double value(double) const;
   /*!
    * \brief derivValue
-   * \return
+   * \return Значение первой производной функции в точке, заданной параметром.
    */
   virtual double derivValue(double) const;
   /*!
    * \brief isDegenerative
-   * \return
+   * \return Возвращает TRUE если функция вырожденная (является крайним упрощённым случаем)
    */
   virtual bool isDegenerative() const;
  protected:
   /*!
-   * \brief epsilon
+   * \brief epsilon - величина погрешности, при значении функции, меньшим этого значения считается корнем
    */
   const cpp_bin_float_quad epsilon = 1e-5;
   /*!
-   * \brief coeffs
+   * \brief coeffs - массив коэффициентов при степенях x. \f[f(x)=a_0 + a_1 x + a_2 x^2 + .. + a_{n-1} x^{n-1} + a_n x^n\f]
    */
   vector<double> coeffs;
 };
