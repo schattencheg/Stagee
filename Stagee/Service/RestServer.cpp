@@ -102,7 +102,7 @@ static void handle_findroots_call(struct mg_connection *nc,
               ostream_iterator<double>(res, " "));
   }
   mg_printf_http_chunk(nc, "\nNewtone algorithm:\n");
-  mg_printf_http_chunk(nc, "[%s]", res.str().c_str());
+  mg_printf_http_chunk(nc, "[%s]\n", res.str().c_str());
 
   mg_send_http_chunk(nc, "", 0); /* Send empty chunk, the end of response */
 }

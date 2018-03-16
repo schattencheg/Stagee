@@ -1,4 +1,3 @@
-#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "SolverNewtone.h"
 
 SolverNewtone::SolverNewtone() {}

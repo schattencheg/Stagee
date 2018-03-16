@@ -19,11 +19,8 @@ double Polynome::value(double x) const {
 double Polynome::derivValue(double x) const {
   cpp_bin_float_quad result = 0.0;
   cpp_bin_float_quad first = value(static_cast<double>(epsilon+x));
-  double tempFirst = static_cast<double>(first);
   cpp_bin_float_quad second = value(x);
-  double tempSecond = static_cast<double>(second);
   result = (first - second) / epsilon;
-  double tempResult = static_cast<double>(result);
   return static_cast<double>(result);
 }
 
