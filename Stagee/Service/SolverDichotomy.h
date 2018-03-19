@@ -22,7 +22,7 @@ class SolverDichotomy : public AbstractSolver {
    * \param f      Функция ContDiffFunction, корни которой ищем
    * \param left   Левая граница диапазона поиска корней
    * \param right  Правая граница диапазона поиска корней
-   * \return       Найденные корни
+   * \return       Вектор найденных корней
    */
   virtual vector<double> solve(ContDiffFunction const *f,
                                double left,
@@ -32,7 +32,7 @@ class SolverDichotomy : public AbstractSolver {
    * \brief intervalParse Parsing an interval
    * \param f             Функция, которую парсим ContDiffFunction
    * \param interval      Интервал, заданный парой pair<double, double>
-   * \return              Возвращает корень, если он есть на интервале
+   * \return              Корень, если он есть на интервале
    */
   vector<double> intervalParse(const ContDiffFunction *f,
                                pair<double,double> interval);
@@ -41,7 +41,7 @@ class SolverDichotomy : public AbstractSolver {
    */
   double epsilon = 1e-15;      // Inaccuracy
   /*!
-   * \brief distanceRoot
+   * \brief distanceRoot - минимальное расстояние между корнями
    */
   double distanceRoot = 0.01;  // Distance between two roots
 };
