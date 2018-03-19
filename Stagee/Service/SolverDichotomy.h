@@ -18,24 +18,26 @@ class SolverDichotomy : public AbstractSolver {
  public:
   SolverDichotomy();
   /*!
-   * \brief solve
-   * \param f
-   * \param left
-   * \param right
-   * \return
+   * \brief solve  Метод возвращает найденные корни функции f на диапазоне [left..right]
+   * \param f      Функция ContDiffFunction, корни которой ищем
+   * \param left   Левая граница диапазона поиска корней
+   * \param right  Правая граница диапазона поиска корней
+   * \return       Найденные корни
    */
-  virtual vector<double> solve(ContDiffFunction const *f, double left,
+  virtual vector<double> solve(ContDiffFunction const *f,
+                               double left,
                                double right);
  protected:
   /*!
-   * \brief intervalParse
-   * \param f
-   * \param interval
-   * \return
+   * \brief intervalParse Parsing an interval
+   * \param f             Функция, которую парсим ContDiffFunction
+   * \param interval      Интервал, заданный парой pair<double, double>
+   * \return              Возвращает корень, если он есть на интервале
    */
-  vector<double> intervalParse(const ContDiffFunction *f, pair<double,double> interval);
+  vector<double> intervalParse(const ContDiffFunction *f,
+                               pair<double,double> interval);
   /*!
-   * \brief epsilon
+   * \brief epsilon - величина погрешности, при значении функции, меньшим этого значения считается корнем
    */
   double epsilon = 1e-15;      // Inaccuracy
   /*!

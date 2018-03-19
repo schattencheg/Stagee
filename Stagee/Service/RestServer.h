@@ -15,4 +15,9 @@ class RestServer {
 public:
   RestServer();
   ~RestServer();
+  static void handle_checkvalue_call(struct mg_connection *nc,
+                                     struct http_message *hm);
+  static void handle_findroots_call(struct mg_connection *nc,
+                                    struct http_message *hm);
+  static void ev_handler(struct mg_connection *nc, int ev, void *ev_data);
 };

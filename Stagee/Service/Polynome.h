@@ -32,7 +32,7 @@ class Polynome : public ContDiffFunction {
   virtual bool isDegenerative() const;
  protected:
   /*!
-   * \brief epsilon - величина погрешности, при значении функции, меньшим этого значения считается корнем
+   * \brief epsilon - величина погрешности, при f(x)<epsilon x считается корнем f(x)
    */
   const cpp_bin_float_quad epsilon = 1e-5;
   /*!

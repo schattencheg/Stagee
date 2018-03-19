@@ -5,10 +5,9 @@ using namespace std;
 static const char *s_http_port = "8080";
 static struct mg_serve_http_opts s_http_server_opts;
 
-static void handle_checkvalue_call(struct mg_connection *nc,
+void RestServer::handle_checkvalue_call(struct mg_connection *nc,
                                    struct http_message *hm) {
-  /*curl -i -X GET http://localhost:8080/api/checkvalue -d "{'x':3,
-   * 'polynomial':[2,-3,1]}"*/
+  /*curl -i -X GET http://localhost:8080/api/checkvalue -d "{'x':3, 'polynomial':[2,-3,1]}"*/
   string JSONString = string(hm->body.p);
   JSONString.resize(hm->body.len);
   int posX = JSONString.find("'x':") + 4;
@@ -37,7 +36,7 @@ static void handle_checkvalue_call(struct mg_connection *nc,
   mg_send_http_chunk(nc, "", 0); /* Send empty chunk, the end of response */
 }
 
-static void handle_findroots_call(struct mg_connection *nc,
+void RestServer::handle_findroots_call(struct mg_connection *nc,
                                   struct http_message *hm) {
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[6, 2]"*/
   /*curl -i -X GET http://localhost:8080/api/findroots -d "[-1, 0, 0, 0, 1]"*/
@@ -107,7 +106,7 @@ static void handle_findroots_call(struct mg_connection *nc,
   mg_send_http_chunk(nc, "", 0); /* Send empty chunk, the end of response */
 }
 
-static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
+void RestServer::ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
   struct http_message *hm = (struct http_message *)ev_data;
 
   switch (ev) {

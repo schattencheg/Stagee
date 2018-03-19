@@ -35,7 +35,7 @@ class SolverNewtone : public AbstractSolver {
    */
   vector<double> intervalParse(const ContDiffFunction *f, pair<double,double> interval);
   /*!
-   * \brief epsilon
+   * \brief epsilon - величина погрешности, при значении функции, меньшим этого значения считается корнем
    */
   double epsilon = 1e-15;      // Inaccuracy
   /*!
