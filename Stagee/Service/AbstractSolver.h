@@ -41,14 +41,13 @@ class AbstractSolver {
    */
   bool isRoot(const ContDiffFunction *f, double value);
   /*!
-   * \brief epsilon is a inaccuracy, if absolute value of variable is smaller
-   * than epsilon we can say that it is zero.
+   * \brief epsilon Inaccuracy  at value of function, smaller this value is considered as a root
    */
-  double epsilon = 1e-15;      // Inaccuracy
+  double epsilon = 1e-15;
   /*!
-   * \brief distanceRoot this value determine how close can be roots.
+   * \brief distanceRoot Minimum distance between roots
    */
-  double distanceRoot = 0.01;  // Distance between two roots
+  double distanceRoot = 0.01;
 };
 
 #endif  // ABSTRACTSOLVER_H

@@ -13,12 +13,12 @@ class FindInterval {
  public:
   FindInterval();
   /*!
-   * \brief findIntervals .Функция осуществляет поиск интервалов, потенциально содержащих корни
-   * \param f             .Функция ContDiffFunction, корни которой ищем
-   * \param left          .Левая граница интервала
-   * \param right         .Правая граница интервала
-   * \param solver        .Метод решения, может быть SolverDichotomy, SolverHorde, SolverNewtone
-   * \return              .Возвращает интервалы, парами [Левая граница, Правая граница]
+   * \brief findIntervals The method carries out search of the intervals which are potentially containing roots
+   * \param f             Continuous differentiable function ContDiffFunction which roots we searching for
+   * \param left          Left border of range of search of roots
+   * \param right         Right border of range of search of roots
+   * \param solver        The solving method, can be SolverDichotomy, SolverHorde, SolverNewtone
+   * \return              Returns intervals i.e. couples [The left border, the Right border]
    */
   static vector<pair<double, double>> findIntervals(const ContDiffFunction *f,
                                                     double left,
