@@ -37,7 +37,7 @@ class SolverNewtone : public AbstractSolver {
   /*!
    * \brief epsilon Inaccuracy  at value of function, smaller this value is considered as a root
    */
-  double epsilon = 1e-15;
+  double epsilon = 1e-12;
   /*!
    * \brief distanceRoot Minimum distance between roots
    */

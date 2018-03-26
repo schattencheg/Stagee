@@ -4,11 +4,11 @@ FindInterval::FindInterval() {}
 
 vector<pair<double, double>> FindInterval::findIntervals(const ContDiffFunction *f,
                     double left, double right, AbstractSolver &solver) {
-  int maxIterationCount = 1000;
+  int maxIterationCount = 10000;
   double vMax = (right - left) / 1000; //Highest Dx
   vector<double> values;
   /*Fills random, sorted points*/
-  int countToGenerate = static_cast<int>((right - left) * 10 );
+  int countToGenerate = static_cast<int>((right - left) * 20 );
   for (int i = 0; i < countToGenerate; i++) {
     double rndTmp = (double)rand() / RAND_MAX;
     values.push_back(left + rndTmp * (right - left));

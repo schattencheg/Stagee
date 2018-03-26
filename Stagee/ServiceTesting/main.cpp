@@ -977,13 +977,13 @@ TEST(ValuesTestCaseConstant, Test05) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 /*****************************************************
-TEST CASES  : ValuesTestCaseDiffPowerDichotomy
+TEST CASES  : ValuesTestCaseDiffPower
 NAME        : solve
 DESCRIPTION : Testing of SolverDichotomy.sign(double)
 INPUT       : double
 OUTPUT      : bool
 *****************************************************/
-TEST(ValuesTestCaseDiffPowerDichotomy, Test01) {
+TEST(ValuesTestCaseDiffPower, Test01) {
   vector<double> initValue = {1};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -992,7 +992,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test01) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test02) {
+TEST(ValuesTestCaseDiffPower, Test02) {
   vector<double> initValue = {1, 2};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1001,7 +1001,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test02) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test03) {
+TEST(ValuesTestCaseDiffPower, Test03) {
   vector<double> initValue = {1, 2, 3};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1010,7 +1010,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test03) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test04) {
+TEST(ValuesTestCaseDiffPower, Test04) {
   vector<double> initValue = {1, 2, 3, 4};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1019,7 +1019,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test04) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test05) {
+TEST(ValuesTestCaseDiffPower, Test05) {
   vector<double> initValue = {1, 2, 3, 4, 5};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1028,7 +1028,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test05) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test06) {
+TEST(ValuesTestCaseDiffPower, Test06) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1037,7 +1037,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test06) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test07) {
+TEST(ValuesTestCaseDiffPower, Test07) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1046,7 +1046,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test07) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test08) {
+TEST(ValuesTestCaseDiffPower, Test08) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1055,7 +1055,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test08) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test09) {
+TEST(ValuesTestCaseDiffPower, Test09) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8, 9};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1064,7 +1064,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test09) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test10) {
+TEST(ValuesTestCaseDiffPower, Test10) {
   vector<double> initValue = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1073,7 +1073,7 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test10) {
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
 
-TEST(ValuesTestCaseDiffPowerDichotomy, Test11) {
+TEST(ValuesTestCaseDiffPower, Test11) {
   vector<double> initValue = {1, 2, 3, 4, 5, 0, 0, 0, 0, 0};
   Polynome polynome(initValue);
   double solveAt = 2;
@@ -1081,8 +1081,68 @@ TEST(ValuesTestCaseDiffPowerDichotomy, Test11) {
   double resultValue = polynome.value(solveAt);
   EXPECT_NEAR(expectedValue, resultValue, delta);
 }
-/********************************************************************/
+/*****************************************************
+TEST CASES  : SpeedTest
+NAME        : none
+DESCRIPTION : Performance test
+INPUT       :
+OUTPUT      :
+*****************************************************/
+template <typename T>
+T func(T x)
+{
+  return pow(x-5, 6);
+}
 
+template <typename T>
+T poly(T x)
+{
+  return pow(x, 6) - 30 * pow(x, 5) + 375 * pow(x, 4) - 2500 * pow(x, 3) + 9375 * pow(x, 2) - 18750 * x + 15625;
+}
+
+template <typename T, T Fn(T), typename It>
+void test(It it)
+{
+  for (T f = 4.98; f < 5.02; f += 0.0001)
+    *it++ = Fn(f);
+}
+
+TEST(SpeedTest, Test1) {
+    std::vector<float>       vf;
+    std::vector<double>      vd;
+    std::vector<long double> vld;
+
+    const clock_t dblt0 = clock();
+    for (int i = 0; i < 100; i++)
+    {
+      test<double,      func>(std::back_inserter<decltype(vd) >(vd));
+      test<double,      poly>(std::back_inserter<decltype(vd) >(vd));
+    }
+    const clock_t dblt1 = clock();
+    const double elapsedSec = (dblt1 - dblt0) / (double)CLOCKS_PER_SEC;
+
+    std::cout << "Double: " << elapsedSec << std::endl;
+
+    std::cout << std::endl;
+
+    using namespace boost::multiprecision;
+    typedef cpp_bin_float_quad cppbinFloat;
+
+    std::vector<cppbinFloat> vbin_float1;
+    std::vector<cppbinFloat> vbin_float2;
+
+    const clock_t bint0 = clock();
+    for (int i = 0; i < 100; i++)
+    {
+      test<cppbinFloat, func>(std::back_inserter<decltype(vbin_float1)>(vbin_float1));
+      test<cppbinFloat, poly>(std::back_inserter<decltype(vbin_float2)>(vbin_float2));
+    }
+    const clock_t bint1 = clock();
+    const double elapsedSecBin = (bint1 - bint0) / (double)CLOCKS_PER_SEC;
+    std::cout << "Bin float: " << elapsedSecBin << std::endl;
+}
+
+/********************************************************************/
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
